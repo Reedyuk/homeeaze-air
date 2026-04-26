@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HomeEaze Air – Know What You're Breathing, In Every Room</title>
+  <meta name="description" content="Multi-room air quality intelligence for UK homes. Smart alerts, weekly reports, and actionable advice – not just a number. Starting from £49/room.">
+  <meta property="og:title" content="HomeEaze Air – Know What You're Breathing, In Every Room">
+  <meta property="og:description" content="Multi-room air quality intelligence for UK homes. Join the waitlist.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <span class="logo-mark">✦</span>
+        <span class="logo-text">HomeEaze Air</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#comparison">Why Us</a></li>
+      </ul>
+      <a href="#waitlist" class="btn btn-primary nav-cta" data-track="nav-cta">Join Waitlist</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="container hero-container">
+      <div class="hero-text">
+        <div class="hero-badge">🇬🇧 Built for UK homes</div>
+        <h1>Know what you're breathing.<br><span class="gradient-text">In every room.</span></h1>
+        <p class="hero-sub">Multi-room air quality intelligence. Smart alerts, weekly reports, and plain-English advice — not just a number you don't understand.</p>
+        <div class="hero-actions">
+          <a href="#waitlist" class="btn btn-primary btn-lg" data-track="hero-cta">Join the Waitlist →</a>
+          <span class="hero-price">Starting from <strong>£49/room</strong></span>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-val">5-in-1</span>
+            <span class="stat-label">Sensors per room</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-val">24/7</span>
+            <span class="stat-label">Continuous monitoring</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-val">1 app</span>
+            <span class="stat-label">All your rooms</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="phone-mockup">
+          <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="app-header">
+                <span class="app-title">HomeEaze Air</span>
+                <span class="app-chip good">✓ 4 rooms</span>
+              </div>
+              <div class="room-grid">
+                <div class="room-card good">
+                  <div class="room-name">Living Room</div>
+                  <div class="room-val">42</div>
+                  <div class="room-meta">AQI · Good</div>
+                  <div class="sparkline">
+                    <div class="spark" style="--h:40%"></div>
+                    <div class="spark" style="--h:48%"></div>
+                    <div class="spark" style="--h:35%"></div>
+                    <div class="spark" style="--h:42%"></div>
+                    <div class="spark" style="--h:38%"></div>
+                    <div class="spark" style="--h:44%"></div>
+                  </div>
+                </div>
+                <div class="room-card warn">
+                  <div class="room-name">Bedroom</div>
+                  <div class="room-val">1,247</div>
+                  <div class="room-meta">CO₂ · Watch</div>
+                  <div class="sparkline">
+                    <div class="spark" style="--h:55%"></div>
+                    <div class="spark" style="--h:62%"></div>
+                    <div class="spark" style="--h:70%"></div>
+                    <div class="spark" style="--h:75%"></div>
+                    <div class="spark" style="--h:82%"></div>
+                    <div class="spark" style="--h:88%"></div>
+                  </div>
+                </div>
+                <div class="room-card bad">
+                  <div class="room-name">Kitchen</div>
+                  <div class="room-val">156</div>
+                  <div class="room-meta">AQI · Poor</div>
+                  <div class="sparkline">
+                    <div class="spark" style="--h:30%"></div>
+                    <div class="spark" style="--h:42%"></div>
+                    <div class="spark" style="--h:60%"></div>
+                    <div class="spark" style="--h:80%"></div>
+                    <div class="spark" style="--h:95%"></div>
+                    <div class="spark" style="--h:100%"></div>
+                  </div>
+                </div>
+                <div class="room-card good">
+                  <div class="room-name">Office</div>
+                  <div class="room-val">38</div>
+                  <div class="room-meta">AQI · Good</div>
+                  <div class="sparkline">
+                    <div class="spark" style="--h:36%"></div>
+                    <div class="spark" style="--h:38%"></div>
+                    <div class="spark" style="--h:35%"></div>
+                    <div class="spark" style="--h:40%"></div>
+                    <div class="spark" style="--h:37%"></div>
+                    <div class="spark" style="--h:38%"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="app-alert">
+                <span>⚠️</span>
+                <div>
+                  <div class="alert-title">Bedroom CO₂ Rising</div>
+                  <div class="alert-action">Open a window before bed →</div>
+                </div>
+              </div>
+              <div class="app-dots">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+            </div>
+          </div>
+          <div class="float-badge pm25">
+            <span class="fb-label">PM2.5</span>
+            <span class="fb-val good">12 μg/m³</span>
+          </div>
+          <div class="float-badge voc">
+            <span class="fb-label">VOC</span>
+            <span class="fb-val warn">0.4 mg/m³</span>
+          </div>
+          <div class="float-badge humidity">
+            <span class="fb-label">Humidity</span>
+            <span class="fb-val good">48%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section id="problem">
+    <div class="container">
+      <div class="section-label">The Problem</div>
+      <h2>Your home has air quality problems <span class="gradient-text">you can't see.</span></h2>
+      <div class="grid-3">
+        <div class="card problem-card reveal">
+          <div class="card-icon">📍</div>
+          <h3>One room tells you nothing</h3>
+          <p>A sensor in the hallway misses PM2.5 from cooking, CO₂ buildup in the bedroom, and VOCs from the bathroom. Every room is different.</p>
+        </div>
+        <div class="card problem-card reveal">
+          <div class="card-icon">🔢</div>
+          <h3>Numbers without meaning</h3>
+          <p>"AQI: 87" — so what? Without context, history, and plain-English advice, raw numbers are useless. You need to know what to do next.</p>
+        </div>
+        <div class="card problem-card reveal">
+          <div class="card-icon">💸</div>
+          <h3>The market has a gap</h3>
+          <p>£25 Amazon sensors are dumb single-room gadgets. £200+ Airthings units are built for offices. There's nothing smart, affordable, and UK-focused.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Multi-Room Matters -->
+  <section id="why-multi-room">
+    <div class="container">
+      <div class="section-label">Why Multi-Room</div>
+      <h2>Every room has <span class="gradient-text">a different problem.</span></h2>
+      <p class="section-sub">A hallway sensor misses everything. Here's what's actually happening in a typical UK home — all at the same time.</p>
+      <div class="floor-plan-visual reveal">
+        <span class="floor-plan-label">Your Home — Right Now</span>
+        <div class="floor-plan-grid">
+          <div class="fp-room-card fp-warn">
+            <div class="fp-room-header">
+              <span class="fp-room-name">🛏 Bedroom</span>
+              <span class="fp-status-badge fp-warn">↑ CO₂ Rising</span>
+            </div>
+            <div class="fp-pollutant-row">
+              <span class="fp-pollutant-name">CO₂</span>
+              <span class="fp-pollutant-val fp-warn">1,247 ppm</span>
+            </div>
+            <div class="fp-bar-track"><div class="fp-bar-fill fp-warn" style="width:82%"></div></div>
+            <p class="fp-note">Builds up while you sleep — disrupting rest quality without you ever knowing.</p>
+          </div>
+          <div class="fp-room-card fp-purple">
+            <div class="fp-room-header">
+              <span class="fp-room-name">🚿 Bathroom</span>
+              <span class="fp-status-badge fp-purple">⚠ VOC Spike</span>
+            </div>
+            <div class="fp-pollutant-row">
+              <span class="fp-pollutant-name">VOC</span>
+              <span class="fp-pollutant-val fp-purple">0.6 mg/m³</span>
+            </div>
+            <div class="fp-bar-track"><div class="fp-bar-fill fp-purple" style="width:68%"></div></div>
+            <p class="fp-note">Cleaning products and poor ventilation cause chemical spikes after every shower.</p>
+          </div>
+          <div class="fp-room-card fp-bad fp-kitchen">
+            <div class="fp-room-header">
+              <span class="fp-room-name">🍳 Kitchen</span>
+              <span class="fp-status-badge fp-bad">🔴 PM2.5 Spike</span>
+            </div>
+            <div class="fp-pollutant-row">
+              <span class="fp-pollutant-name">PM2.5</span>
+              <span class="fp-pollutant-val fp-bad">156 μg/m³</span>
+              <span class="fp-pollutant-limit">10× WHO limit</span>
+            </div>
+            <div class="fp-bar-track"><div class="fp-bar-fill fp-bad" style="width:95%"></div></div>
+            <p class="fp-note">Fine particles from cooking reach dangerous levels within minutes — and drift into every other room.</p>
+          </div>
+        </div>
+        <div class="floor-plan-footer">🏠 Three rooms. Three separate problems. One app to see them all.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why UK/EU Homes Are Different -->
+  <section id="uk-eu-homes">
+    <div class="container">
+      <div class="section-label">Built for UK &amp; EU Homes</div>
+      <h2>US advice doesn't apply here. <span class="gradient-text">Here's why.</span></h2>
+      <p class="section-sub">Most air quality products and advice come from the US, where homes have central HVAC. UK and EU homes work completely differently — and that changes everything.</p>
+      <div class="uk-eu-compare reveal">
+        <div class="uk-eu-col">
+          <div class="uk-eu-col-header them">
+            <span>🏠</span>
+            <span>US home — with central HVAC</span>
+          </div>
+          <ul class="uk-eu-list">
+            <li>Central air continuously circulates through every room</li>
+            <li>Filtration and purification covers the whole house at once</li>
+            <li>One sensor in one room gives a broadly representative picture</li>
+            <li>Pollutants mix and level out across the home</li>
+          </ul>
+        </div>
+        <div class="uk-eu-col uk-eu-col--highlight">
+          <div class="uk-eu-col-header us">
+            <span>🏡</span>
+            <span>UK/EU home — no central HVAC</span>
+          </div>
+          <ul class="uk-eu-list">
+            <li>No central air circulation — each room is effectively isolated</li>
+            <li>Doors closed at night trap CO₂ and other pollutants</li>
+            <li>Post-2016 airtight new builds have minimal passive ventilation</li>
+            <li>Room-by-room ventilation quality varies wildly across the same home</li>
+            <li>CO₂ and PM2.5 behave very differently in sealed rooms</li>
+          </ul>
+        </div>
+      </div>
+      <div class="uk-eu-callout reveal">
+        <span class="uk-eu-callout-icon">💡</span>
+        <p>In a typical UK home, your sealed bedroom can hit 2,000 ppm CO₂ while your living room reads 600 ppm — at the same time, in the same house. A single hallway sensor gives you neither reading.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section id="solution">
+    <div class="container solution-container">
+      <div class="solution-visual reveal">
+        <div class="report-card">
+          <div class="report-header">
+            <span class="report-title">📊 Weekly Air Report</span>
+            <span class="report-chip">This week</span>
+          </div>
+          <div class="report-body">
+            <div class="score-ring">
+              <div class="score-inner">
+                <span class="score-grade">B+</span>
+                <span class="score-label">Home Score</span>
+              </div>
+            </div>
+            <div class="score-list">
+              <div class="score-row">
+                <span>Living Room</span>
+                <div class="score-bar"><div class="score-fill good" style="width:85%"></div></div>
+                <span class="score-num">85</span>
+              </div>
+              <div class="score-row">
+                <span>Bedroom</span>
+                <div class="score-bar"><div class="score-fill warn" style="width:62%"></div></div>
+                <span class="score-num">62</span>
+              </div>
+              <div class="score-row">
+                <span>Kitchen</span>
+                <div class="score-bar"><div class="score-fill bad" style="width:38%"></div></div>
+                <span class="score-num">38</span>
+              </div>
+              <div class="score-row">
+                <span>Office</span>
+                <div class="score-bar"><div class="score-fill good" style="width:91%"></div></div>
+                <span class="score-num">91</span>
+              </div>
+            </div>
+          </div>
+          <div class="report-insight">
+            <span>💡</span>
+            <p>Your kitchen air quality drops 40% during evening cooking. A cooker hood could improve your home score by 15 points.</p>
+          </div>
+        </div>
+      </div>
+      <div class="solution-text reveal">
+        <div class="section-label">The Solution</div>
+        <h2>Your whole home. <span class="gradient-text">One clear picture.</span></h2>
+        <p>HomeEaze Air combines compact sensors in every room with intelligent software that spots patterns, sends smart alerts, and tells you exactly what to do — in plain English.</p>
+        <ul class="check-list">
+          <li><span class="check">✓</span> Multi-room network that understands your whole home</li>
+          <li><span class="check">✓</span> Patterns spotted across rooms — not just snapshots</li>
+          <li><span class="check">✓</span> "Open the bedroom window" — not "AQI: 89"</li>
+          <li><span class="check">✓</span> Weekly reports showing your home's air quality story</li>
+        </ul>
+        <a href="#waitlist" class="btn btn-primary" data-track="solution-cta">Get Early Access →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works">
+    <div class="container">
+      <div class="section-label">How It Works</div>
+      <h2>Up and running <span class="gradient-text">in minutes.</span></h2>
+      <p class="section-sub">No engineers, no drilling, no subscriptions. Just plug in, connect, and breathe easy.</p>
+      <div class="steps-grid">
+        <div class="step-card reveal">
+          <div class="step-number">1</div>
+          <div class="step-icon">📦</div>
+          <h3 class="step-title">Place sensors</h3>
+          <p class="step-desc">Put a compact 5-in-1 sensor in each room you want to monitor. No installation required — just place and power on.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-number">2</div>
+          <div class="step-icon">📡</div>
+          <h3 class="step-title">Connect your way</h3>
+          <p class="step-desc">Wi-Fi for early prototypes. Thread/Matter planned for production units — lower power, better mesh, and no cloud dependency required.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-number">3</div>
+          <div class="step-icon">🏠</div>
+          <h3 class="step-title">See your whole home</h3>
+          <p class="step-desc">The app shows a live view of every room at once — scores, trends, and comparisons across your entire home.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-number">4</div>
+          <div class="step-icon">🔔</div>
+          <h3 class="step-title">Get alerts &amp; reports</h3>
+          <p class="step-desc">Smart push notifications when something needs attention, plus a weekly home score report every Sunday.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features">
+    <div class="container">
+      <div class="section-label">What You Get</div>
+      <h2>Everything you need to <span class="gradient-text">breathe easy.</span></h2>
+      <div class="grid-3 features-grid">
+        <div class="card feature-card reveal" data-feature="multi-room" data-track="feature">
+          <div class="card-icon">🏠</div>
+          <h3>Multi-Room Mapping</h3>
+          <p>See all your rooms at once. Understand how air quality moves through your home throughout the day.</p>
+          <span class="feature-tag">Most wanted</span>
+        </div>
+        <div class="card feature-card reveal" data-feature="smart-alerts" data-track="feature">
+          <div class="card-icon">🔔</div>
+          <h3>Smart Alerts</h3>
+          <p>"Your bedroom CO₂ spikes every night at 11pm. Here's why — and how to fix it before it affects your sleep."</p>
+        </div>
+        <div class="card feature-card reveal" data-feature="weekly-reports" data-track="feature">
+          <div class="card-icon">📊</div>
+          <h3>Weekly Reports</h3>
+          <p>Your home's air quality story, delivered every Sunday. Trends, insights, and your personalised home score.</p>
+        </div>
+        <div class="card feature-card reveal" data-feature="actionable-advice" data-track="feature">
+          <div class="card-icon">⚡</div>
+          <h3>Actionable Advice</h3>
+          <p>No jargon. Clear, specific steps: "Open the kitchen window for 10 minutes after cooking."</p>
+        </div>
+        <div class="card feature-card reveal" data-feature="sensors" data-track="feature">
+          <div class="card-icon">🌡️</div>
+          <h3>5-in-1 Sensors</h3>
+          <p>PM2.5, CO₂, VOC, Temperature, and Humidity in one compact device per room. No cluster of gadgets.</p>
+        </div>
+        <div class="card feature-card reveal" data-feature="mobile-app" data-track="feature">
+          <div class="card-icon">📱</div>
+          <h3>Mobile App</h3>
+          <p>iOS and Android. Check any room, anywhere. Push notifications for air quality events that actually matter.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Automation First -->
+  <section id="automation">
+    <div class="container">
+      <div class="section-label">Automation-First</div>
+      <h2>Built for Home Assistant, <span class="gradient-text">MQTT &amp; beyond.</span></h2>
+      <p class="section-sub">Designed from the ground up for technical users. No lock-in. No walled garden. Your data, your infrastructure.</p>
+      <div class="automation-grid">
+        <div class="automation-features">
+          <div class="auto-item reveal">
+            <div class="auto-icon">🏠</div>
+            <div class="auto-content">
+              <h3>Native Home Assistant integration</h3>
+              <p>Full HA support with auto-discovery. Build your own automations, dashboards, and alerts using your own rules — no middleware required.</p>
+            </div>
+          </div>
+          <div class="auto-item reveal">
+            <div class="auto-icon">📡</div>
+            <div class="auto-content">
+              <h3>MQTT discovery</h3>
+              <p>Standard MQTT topics with auto-discovery. Works with your existing broker — Mosquitto, EMQX, or whatever you're running.</p>
+            </div>
+          </div>
+          <div class="auto-item reveal">
+            <div class="auto-icon">🔒</div>
+            <div class="auto-content">
+              <h3>Local API, cloud optional</h3>
+              <p>All core functionality runs locally on your LAN. The cloud layer is optional — use it for remote access and reports, or skip it entirely.</p>
+            </div>
+          </div>
+          <div class="auto-item reveal">
+            <div class="auto-icon">🔗</div>
+            <div class="auto-content">
+              <h3>Thread/Matter on the roadmap</h3>
+              <p>Wi-Fi for early prototypes. Thread/Matter planned for production — lower power, better mesh reliability, native Matter controller support.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tech-spec-card reveal">
+          <div class="tech-spec-header">
+            <span class="tech-spec-title">⚙️ For Technical Users</span>
+          </div>
+          <ul class="tech-spec-list">
+            <li><span class="tech-tag">Local-first</span> All core functionality works on your LAN without internet</li>
+            <li><span class="tech-tag">MQTT</span> Standard pub/sub with configurable topics and auto-discovery</li>
+            <li><span class="tech-tag">HA</span> HACS integration + YAML config, entity auto-registration</li>
+            <li><span class="tech-tag">REST API</span> Full read/write API for data export and custom automation</li>
+            <li><span class="tech-tag">Export</span> CSV and JSON data export — no walled garden, no vendor lock-in</li>
+            <li><span class="tech-tag">IAQS</span> Open Indoor Air Quality Standard scoring — GO IAQS compatible</li>
+            <li><span class="tech-tag">No lock-in</span> Your data belongs to you, not us</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mid-page CTA -->
+  <section id="mid-cta">
+    <div class="container">
+      <div class="mid-cta-inner reveal">
+        <div class="mid-cta-text">
+          <h2>Ready to know what you're breathing?</h2>
+          <p>Join the research group — help shape HomeEaze Air from the ground up.</p>
+        </div>
+        <a href="#waitlist" class="btn btn-primary btn-lg" data-track="mid-cta">Join the Waitlist →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing">
+    <div class="container">
+      <div class="section-label">Pricing</div>
+      <h2>Simple pricing, <span class="gradient-text">per room.</span></h2>
+      <p class="section-sub">Add as many rooms as you need. Mix tiers. No subscriptions yet — just hardware + app.</p>
+      <div class="grid-3 pricing-grid">
+        <div class="card price-card reveal" data-price="49" data-track="price">
+          <div class="price-name">Starter</div>
+          <div class="price-amount">£<span class="price-big">49</span><span class="price-unit">/room</span></div>
+          <p class="price-desc">Perfect for getting started with one or two key rooms.</p>
+          <ul class="price-list">
+            <li class="yes">5-in-1 sensor hardware</li>
+            <li class="yes">Real-time monitoring</li>
+            <li class="yes">Mobile app (iOS + Android)</li>
+            <li class="yes">7-day history</li>
+            <li class="no">Smart alerts</li>
+            <li class="no">Weekly reports</li>
+            <li class="no">Optional insights layer</li>
+          </ul>
+          <a href="#waitlist" class="btn btn-outline btn-full" data-track="price-cta-49">I'm interested →</a>
+        </div>
+        <div class="card price-card featured reveal" data-price="69" data-track="price">
+          <div class="price-badge">Most Popular</div>
+          <div class="price-name">Home</div>
+          <div class="price-amount">£<span class="price-big">69</span><span class="price-unit">/room</span></div>
+          <p class="price-desc">Full multi-room intelligence for your whole home.</p>
+          <ul class="price-list">
+            <li class="yes">5-in-1 sensor hardware</li>
+            <li class="yes">Real-time monitoring</li>
+            <li class="yes">Mobile app (iOS + Android)</li>
+            <li class="yes">90-day history</li>
+            <li class="yes">Smart alerts</li>
+            <li class="yes">Weekly reports</li>
+            <li class="no">Optional insights layer</li>
+          </ul>
+          <a href="#waitlist" class="btn btn-primary btn-full" data-track="price-cta-69">I'm interested →</a>
+        </div>
+        <div class="card price-card reveal" data-price="79" data-track="price">
+          <div class="price-name">Premium</div>
+          <div class="price-amount">£<span class="price-big">79</span><span class="price-unit">/room</span></div>
+          <p class="price-desc">The complete package for health-conscious households.</p>
+          <ul class="price-list">
+            <li class="yes">5-in-1 sensor hardware</li>
+            <li class="yes">Real-time monitoring</li>
+            <li class="yes">Mobile app (iOS + Android)</li>
+            <li class="yes">Unlimited history</li>
+            <li class="yes">Smart alerts</li>
+            <li class="yes">Weekly reports</li>
+            <li class="yes">Optional insights layer</li>
+          </ul>
+          <a href="#waitlist" class="btn btn-outline btn-full" data-track="price-cta-79">I'm interested →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How We're Different -->
+  <section id="comparison">
+    <div class="container">
+      <div class="section-label">How We're Different</div>
+      <h2>Built differently, <span class="gradient-text">by design.</span></h2>
+      <p class="section-sub">We're not trying to be the cheapest sensor or the most enterprise product. We're filling a specific gap that nobody else is addressing.</p>
+      <div class="diff-grid">
+        <div class="diff-card reveal">
+          <div class="diff-icon">🏠</div>
+          <h3>Multi-room by design</h3>
+          <p>Not an afterthought or a bundle of single sensors. The entire system — hardware, app, alerts — is built around understanding your whole home as a connected network.</p>
+        </div>
+        <div class="diff-card reveal">
+          <div class="diff-icon">⚙️</div>
+          <h3>Automation-first</h3>
+          <p>Home Assistant, MQTT, local API, and Thread/Matter planned from day one. Built for people who want real control — not another cloud-locked device on their network.</p>
+        </div>
+        <div class="diff-card reveal">
+          <div class="diff-icon">🇬🇧</div>
+          <h3>UK/EU home-focused</h3>
+          <p>Designed for homes without central HVAC. We understand airtight new builds, room-by-room ventilation, and the specific pollutant patterns that UK and EU homes produce.</p>
+        </div>
+        <div class="diff-card reveal">
+          <div class="diff-icon">📈</div>
+          <h3>Affordable at scale</h3>
+          <p>The price per room stays the same whether you're monitoring two rooms or eight. No tiered "whole home" upgrade fees — just hardware, scaled to your home.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who This Is NOT For -->
+  <section id="not-for">
+    <div class="container">
+      <div class="section-label">Honest About Our Fit</div>
+      <h2>Who this is <span class="gradient-text">not for.</span></h2>
+      <p class="section-sub">We'd rather be upfront about this than oversell. HomeEaze Air isn't the right fit for everyone — and that's fine.</p>
+      <div class="not-for-grid">
+        <div class="not-for-card reveal">
+          <div class="not-for-icon">🌀</div>
+          <h3>Homes with strong central HVAC</h3>
+          <p>If your home has ducted central air that continuously circulates through every room, a single sensor in a central location will give you a fair picture. Multi-room monitoring adds less value here.</p>
+        </div>
+        <div class="not-for-card reveal">
+          <div class="not-for-icon">🔬</div>
+          <h3>DIY builders who prefer AirGradient</h3>
+          <p>If you want open-source hardware you can flash yourself and build your own dashboards from scratch, AirGradient is excellent. We're building a more complete product experience — it's a different trade-off.</p>
+        </div>
+        <div class="not-for-card reveal">
+          <div class="not-for-icon">📍</div>
+          <h3>People who only need one room</h3>
+          <p>If you just want to monitor one specific room and don't care about the rest of your home, a cheaper single-room sensor will do the job perfectly well.</p>
+        </div>
+        <div class="not-for-card reveal">
+          <div class="not-for-icon">📉</div>
+          <h3>People who just want a number on the wall</h3>
+          <p>If you want a simple display showing today's reading with no history or context, HomeEaze Air is more than you need. We're built for understanding patterns over time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who Is This For? -->
+  <section id="who-its-for">
+    <div class="container">
+      <div class="section-label">Who It's For</div>
+      <h2>Made for people who <span class="gradient-text">care what they breathe.</span></h2>
+      <p class="section-sub">If any of these sound like you, HomeEaze Air was built with you in mind.</p>
+      <div class="persona-grid">
+        <div class="persona-card reveal">
+          <div class="persona-emoji">👨‍👩‍👧‍👦</div>
+          <div class="persona-title">Parents</div>
+          <p class="persona-desc">Children's developing lungs are especially vulnerable. Know exactly what they're breathing in their bedroom and play areas.</p>
+        </div>
+        <div class="persona-card reveal">
+          <div class="persona-emoji">🤧</div>
+          <div class="persona-title">Allergy &amp; Asthma Sufferers</div>
+          <p class="persona-desc">Track the triggers that set off your symptoms — PM2.5, VOCs, humidity — and take action before they affect you.</p>
+        </div>
+        <div class="persona-card reveal">
+          <div class="persona-emoji">💻</div>
+          <div class="persona-title">Remote Workers</div>
+          <p class="persona-desc">High CO₂ in your home office kills focus and productivity. Keep your workspace sharp with continuous monitoring.</p>
+        </div>
+        <div class="persona-card reveal">
+          <div class="persona-emoji">🏗️</div>
+          <div class="persona-title">New Build Owners</div>
+          <p class="persona-desc">UK new builds are tightly sealed — great for energy bills, terrible for air quality. Verify your ventilation is actually working.</p>
+        </div>
+        <div class="persona-card reveal">
+          <div class="persona-emoji">🍄</div>
+          <div class="persona-title">Mould &amp; Damp Concerns</div>
+          <p class="persona-desc">High humidity is the first warning sign of mould risk. Catch it early with room-by-room tracking before it becomes a problem.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Now? -->
+  <section id="why-now">
+    <div class="container">
+      <div class="section-label">Why Now</div>
+      <h2>UK homes have an <span class="gradient-text">air quality crisis.</span></h2>
+      <p class="section-sub">This isn't a new problem — but awareness has never been higher, and the solutions have never been this accessible.</p>
+      <div class="why-now-grid">
+        <div class="why-now-card reveal">
+          <div class="why-now-icon">🏗️</div>
+          <div class="why-now-content">
+            <h3>UK new-build ventilation failures</h3>
+            <p>Post-2016 building regulations demand airtight homes for energy efficiency — but ventilation standards haven't kept pace. Thousands of new UK homes trap pollutants inside with no way out.</p>
+          </div>
+        </div>
+        <div class="why-now-card reveal">
+          <div class="why-now-icon">😴</div>
+          <div class="why-now-content">
+            <h3>CO₂ is silently ruining your sleep</h3>
+            <p>Research shows CO₂ above 1,000 ppm significantly impairs sleep quality. In a sealed bedroom with two people, levels routinely exceed 2,000 ppm by morning — without anyone realising.</p>
+          </div>
+        </div>
+        <div class="why-now-card reveal">
+          <div class="why-now-icon">🍳</div>
+          <div class="why-now-content">
+            <h3>PM2.5 from cooking is underestimated</h3>
+            <p>A 20-minute cooking session can push kitchen PM2.5 to 10× the WHO safe limit. These fine particles travel through your home and persist for hours — long after the smell is gone.</p>
+          </div>
+        </div>
+        <div class="why-now-card reveal">
+          <div class="why-now-icon">🦠</div>
+          <div class="why-now-content">
+            <h3>Post-COVID awareness is at an all-time high</h3>
+            <p>COVID-19 fundamentally changed how people think about indoor air. Ventilation is now a mainstream concern — and people are actively looking for tools to take control of what they breathe.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why We're Validating First -->
+  <section id="our-approach">
+    <div class="container">
+      <div class="section-label">Our Approach</div>
+      <h2>Validating before building. <span class="gradient-text">Here's why.</span></h2>
+      <div class="approach-grid">
+        <div class="approach-text reveal">
+          <p>Hardware is hard. Anyone can launch a crowdfunding campaign with a render and a promise. We're doing this differently.</p>
+          <p>We're talking to real UK homeowners first — understanding the specific rooms, habits, and problems that matter — before we commit to final hardware. The prototypes we test with our pilot group will directly shape what ships.</p>
+          <ul class="check-list">
+            <li><span class="check">✓</span> Hardware margins are tight — we're designing for affordability from day one, not as an afterthought</li>
+            <li><span class="check">✓</span> Multi-room scaling must stay affordable — £49/room is a constraint we're engineering to, not a number we picked</li>
+            <li><span class="check">✓</span> No subscriptions required for core features — an optional insights layer may fund long-term development</li>
+            <li><span class="check">✓</span> Pilot group feedback determines what ships — you're not pre-ordering, you're co-designing</li>
+          </ul>
+        </div>
+        <div class="approach-cards reveal">
+          <div class="approach-card">
+            <div class="approach-card-icon">🔬</div>
+            <h3>Pilot Programme</h3>
+            <p>A small group of early testers will receive prototype hardware and work with us directly to validate the experience before we go to production.</p>
+          </div>
+          <div class="approach-card">
+            <div class="approach-card-icon">🏭</div>
+            <h3>No Crowdfunding</h3>
+            <p>We're not asking you to fund production. This waitlist is about understanding real demand and building with the right people from the start.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Waitlist -->
+  <section id="waitlist">
+    <div class="container waitlist-container">
+      <div class="waitlist-text reveal">
+        <div class="section-label">Pilot Programme</div>
+        <h2>Join the <span class="gradient-text">research group.</span></h2>
+        <p>We're looking for UK homeowners who want to help shape HomeEaze Air from the ground up. Tell us about your home — your answers directly influence what we build.</p>
+        <div class="perks">
+          <div class="perk">🔬 Help shape the early prototypes</div>
+          <div class="perk">🧪 Be part of the pilot programme</div>
+          <div class="perk">📊 Join the research group</div>
+          <div class="perk">💬 Direct access to the founding team</div>
+        </div>
+      </div>
+
+      <div class="waitlist-form-wrap reveal">
+        <form id="waitlist-form">
+          <div class="form-group">
+            <label for="email">Email address <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label>How many rooms would you monitor?</label>
+            <div class="radio-row">
+              <label class="choice"><input type="radio" name="rooms" value="1"> 1 room</label>
+              <label class="choice"><input type="radio" name="rooms" value="2-3"> 2–3 rooms</label>
+              <label class="choice"><input type="radio" name="rooms" value="4-5"> 4–5 rooms</label>
+              <label class="choice"><input type="radio" name="rooms" value="6+"> 6+ rooms</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Which features matter most? <span class="select-many">(select all that apply)</span></label>
+            <div class="check-grid">
+              <label class="choice"><input type="checkbox" name="features" value="multi-room"> Multi-room view</label>
+              <label class="choice"><input type="checkbox" name="features" value="alerts"> Smart alerts</label>
+              <label class="choice"><input type="checkbox" name="features" value="reports"> Weekly reports</label>
+              <label class="choice"><input type="checkbox" name="features" value="advice"> Actionable advice</label>
+              <label class="choice"><input type="checkbox" name="features" value="sensors"> Sensor accuracy</label>
+              <label class="choice"><input type="checkbox" name="features" value="app"> Mobile app</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Which price point interests you most?</label>
+            <div class="radio-row">
+              <label class="choice"><input type="radio" name="pricePoint" value="49"> £49/room</label>
+              <label class="choice"><input type="radio" name="pricePoint" value="59"> £59/room</label>
+              <label class="choice"><input type="radio" name="pricePoint" value="69"> £69/room</label>
+              <label class="choice"><input type="radio" name="pricePoint" value="79"> £79/room</label>
+              <label class="choice"><input type="radio" name="pricePoint" value="80+"> Over £79</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="concern">What's your main air quality concern?</label>
+            <select id="concern" name="concern">
+              <option value="">Select one...</option>
+              <option value="kids">Children's health</option>
+              <option value="sleep">Sleep quality</option>
+              <option value="asthma">Asthma / allergies</option>
+              <option value="wellness">General wellness</option>
+              <option value="wfh">Home office productivity</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg btn-full" id="submit-btn">
+            Join the Waitlist →
+          </button>
+          <p class="form-note">No spam. We'll only email you about HomeEaze Air.</p>
+        </form>
+
+        <div id="success-msg" class="success-msg hidden">
+          <div class="success-icon">🎉</div>
+          <h3>You're on the list!</h3>
+          <p>Thank you — your answers directly shape what we build. We'll be in touch.</p>
+          <a href="https://twitter.com/intent/tweet?text=I%20just%20joined%20the%20waitlist%20for%20HomeEaze%20Air%20%E2%80%93%20multi-room%20air%20quality%20intelligence%20for%20UK%20homes!%20%23AirQuality%20%23SmartHome" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Share on X →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo-mark">✦</span>
+        <span class="logo-text">HomeEaze Air</span>
+        <p>Multi-room air quality intelligence for UK homes.</p>
+      </div>
+      <nav class="footer-links">
+        <a href="#how-it-works">How It Works</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#comparison">Compare</a>
+        <a href="#waitlist">Join Waitlist</a>
+      </nav>
+      <p class="footer-legal">© 2025 HomeEaze. Made with ❤️ in the UK.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

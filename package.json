@@ -1,0 +1,15 @@
+{
+  "name": "homeeaze-air-landing",
+  "version": "1.0.0",
+  "description": "HomeEaze Air – validation landing page",
+  "scripts": {
+    "serve": "firebase serve --only hosting",
+    "deploy": "firebase deploy --only hosting,firestore"
+  },
+  "devDependencies": {
+    "firebase-tools": "^13.35.1"
+  },
+  "engines": {
+    "node": "20"
+  }
+}
