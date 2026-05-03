@@ -57,7 +57,7 @@
 
     /* ── Stat cards ── */
     .stats-grid {
-      display: grid; grid-template-columns: repeat(8, 1fr); gap: 12px; margin-bottom: 20px;
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-bottom: 20px;
     }
     .stat-card {
       background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
@@ -90,6 +90,7 @@
     .charts-row { display: grid; gap: 16px; }
     .charts-row-3 { grid-template-columns: repeat(3, 1fr); margin-bottom: 28px; }
     .charts-row-2 { grid-template-columns: repeat(2, 1fr); margin-bottom: 28px; }
+    .charts-row-4 { grid-template-columns: repeat(4, 1fr); margin-bottom: 28px; }
     .chart-card {
       background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
       padding: 20px; border-left: 3px solid transparent;
@@ -163,6 +164,7 @@
     /* ── Responsive ── */
     @media (max-width: 1100px) {
       .stats-grid { grid-template-columns: repeat(4, 1fr); }
+      .charts-row-4 { grid-template-columns: repeat(2, 1fr); }
       .charts-row-3 { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 700px) {
@@ -206,7 +208,7 @@
   </header>
   <main>
 
-    <!-- 8 Stat cards -->
+    <!-- Stat cards -->
     <div class="stats-grid">
       <div class="stat-card">
         <span class="stat-label">Total Applications</span>
@@ -225,16 +227,12 @@
         <span class="stat-value cyan" id="stat-avg-rooms">—</span>
       </div>
       <div class="stat-card">
-        <span class="stat-label">Top Concern</span>
-        <span class="stat-value amber sm" id="stat-top-concern">—</span>
+        <span class="stat-label">HA Users</span>
+        <span class="stat-value amber" id="stat-ha-users">—</span>
       </div>
       <div class="stat-card">
-        <span class="stat-label">Top Feature</span>
-        <span class="stat-value purple sm" id="stat-top-feature">—</span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-label">Top Price</span>
-        <span class="stat-value green" id="stat-top-price">—</span>
+        <span class="stat-label">New Builds</span>
+        <span class="stat-value blue" id="stat-new-builds">—</span>
       </div>
       <div class="stat-card">
         <span class="stat-label">Conversion</span>
@@ -247,7 +245,7 @@
 
     <!-- Row 1: Growth -->
     <div class="section-header"><h2>Growth</h2></div>
-    <div class="charts-row charts-row-3">
+    <div class="charts-row charts-row-2">
       <div class="chart-card growth">
         <h3>Cumulative Growth</h3>
         <div class="chart-wrap"><canvas id="chart-cumulative"></canvas></div>
@@ -256,36 +254,62 @@
         <h3>Daily Applications</h3>
         <div class="chart-wrap"><canvas id="chart-daily"></canvas></div>
       </div>
-      <div class="chart-card growth">
-        <h3>Conversion Funnel</h3>
-        <div class="chart-wrap"><canvas id="chart-funnel"></canvas></div>
-      </div>
     </div>
 
     <!-- Row 2: Applicant Profile -->
     <div class="section-header"><h2>Applicant Profile</h2></div>
     <div class="charts-row charts-row-3">
       <div class="chart-card profile">
-        <h3>Concern Breakdown</h3>
-        <div class="chart-wrap"><canvas id="chart-concern"></canvas></div>
+        <h3>Home Type</h3>
+        <div class="chart-wrap"><canvas id="chart-home-type"></canvas></div>
       </div>
       <div class="chart-card profile">
         <h3>Rooms per Home</h3>
         <div class="chart-wrap"><canvas id="chart-rooms"></canvas></div>
       </div>
       <div class="chart-card profile">
-        <h3>Price Interest</h3>
-        <div class="chart-wrap"><canvas id="chart-price"></canvas></div>
+        <h3>Door Behaviour</h3>
+        <div class="chart-wrap"><canvas id="chart-door"></canvas></div>
       </div>
     </div>
 
-    <!-- Row 3: Feature & Engagement -->
-    <div class="section-header"><h2>Features &amp; Engagement</h2></div>
+    <!-- Row 3: Smart Home -->
+    <div class="section-header"><h2>Smart Home</h2></div>
     <div class="charts-row charts-row-3">
       <div class="chart-card engagement">
-        <h3>Feature Interest</h3>
-        <div class="chart-wrap-tall"><canvas id="chart-features"></canvas></div>
+        <h3>HA Usage</h3>
+        <div class="chart-wrap"><canvas id="chart-ha"></canvas></div>
       </div>
+      <div class="chart-card engagement">
+        <h3>MQTT Usage</h3>
+        <div class="chart-wrap"><canvas id="chart-mqtt"></canvas></div>
+      </div>
+      <div class="chart-card engagement">
+        <h3>Hardware Comfort</h3>
+        <div class="chart-wrap"><canvas id="chart-hw-comfort"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Row 4: IAQ -->
+    <div class="section-header"><h2>Indoor Air Quality</h2></div>
+    <div class="charts-row charts-row-3">
+      <div class="chart-card price-s">
+        <h3>Top IAQ Issues</h3>
+        <div class="chart-wrap-tall"><canvas id="chart-iaq-issues"></canvas></div>
+      </div>
+      <div class="chart-card price-s">
+        <h3>Important Rooms</h3>
+        <div class="chart-wrap-tall"><canvas id="chart-important-rooms"></canvas></div>
+      </div>
+      <div class="chart-card price-s">
+        <h3>Ventilation Type</h3>
+        <div class="chart-wrap-tall"><canvas id="chart-ventilation"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Row 5: Features & Engagement -->
+    <div class="section-header"><h2>Features &amp; Engagement</h2></div>
+    <div class="charts-row charts-row-3">
       <div class="chart-card engagement">
         <h3>CTA Performance</h3>
         <div class="chart-wrap"><canvas id="chart-cta"></canvas></div>
@@ -294,42 +318,33 @@
         <h3>Traffic Sources</h3>
         <div class="chart-wrap-tall"><canvas id="chart-referrers"></canvas></div>
       </div>
-    </div>
-
-    <!-- Row 4: Price Signals -->
-    <div class="section-header"><h2>Price Signals</h2></div>
-    <div class="charts-row charts-row-2">
-      <div class="chart-card price-s">
-        <h3>Price Hover vs Click vs Apply</h3>
-        <div class="chart-wrap"><canvas id="chart-price-signals"></canvas></div>
-      </div>
-      <div class="chart-card price-s">
-        <h3>Page Views Over Time</h3>
-        <div class="chart-wrap"><canvas id="chart-pageviews"></canvas></div>
+      <div class="chart-card growth">
+        <h3>Conversion Funnel</h3>
+        <div class="chart-wrap"><canvas id="chart-funnel"></canvas></div>
       </div>
     </div>
 
     <!-- Applications table -->
     <div class="table-section">
       <div class="table-header">
-        <h3>Waitlist Applications</h3>
+        <h3>Pilot Applications</h3>
         <div class="table-controls">
           <input type="search" id="table-search" placeholder="Search by email…" class="table-search">
-          <select id="filter-concern" class="table-filter">
-            <option value="">All concerns</option>
-            <option value="kids">Children's health</option>
-            <option value="sleep">Sleep quality</option>
-            <option value="asthma">Asthma / Allergies</option>
-            <option value="wellness">General wellness</option>
-            <option value="wfh">Remote work</option>
+          <select id="filter-home-type" class="table-filter">
+            <option value="">All home types</option>
+            <option value="flat">Flat</option>
+            <option value="terrace">Terrace</option>
+            <option value="semi-detached">Semi-detached</option>
+            <option value="detached">Detached</option>
+            <option value="new-build">New build</option>
             <option value="other">Other</option>
           </select>
           <select id="filter-rooms" class="table-filter">
             <option value="">All room counts</option>
-            <option value="1">1 room</option>
-            <option value="2-3">2–3 rooms</option>
-            <option value="4-5">4–5 rooms</option>
-            <option value="6+">6+ rooms</option>
+            <option value="1-2">1–2 rooms</option>
+            <option value="3-4">3–4 rooms</option>
+            <option value="5+">5+ rooms</option>
+            <option value="whole-home">Whole home</option>
           </select>
           <span class="table-count" id="table-count"></span>
           <button class="btn-export" id="btn-export">⬇ Export CSV</button>
@@ -341,12 +356,12 @@
             <tr>
               <th>Date</th>
               <th>Email</th>
+              <th>Home Type</th>
               <th>Rooms</th>
-              <th>Price</th>
-              <th>Concern</th>
-              <th>Features</th>
+              <th>HA</th>
+              <th>MQTT</th>
+              <th>IAQ Issues</th>
               <th>Source</th>
-              <th>Session</th>
             </tr>
           </thead>
           <tbody id="signups-tbody">
@@ -416,21 +431,17 @@
   Chart.defaults.font.size = 12;
 
   // ── Helper maps ───────────────────────────────────────
-  const CONCERN_LABELS = {
-    kids: "Children's health", sleep: 'Sleep quality', asthma: 'Asthma / Allergies',
-    wellness: 'General wellness', wfh: 'Remote work', other: 'Other'
+  const HOME_TYPE_LABELS = {
+    flat: 'Flat', terrace: 'Terrace', 'semi-detached': 'Semi-detached',
+    detached: 'Detached', 'new-build': 'New build', other: 'Other'
   };
-  const FEATURE_LABELS = {
-    'multi-room': 'Multi-room view', alerts: 'Smart alerts', reports: 'Weekly reports',
-    advice: 'Actionable advice', sensors: 'Sensor accuracy', app: 'Mobile app'
-  };
-  const PRICE_LABELS = {
-    '49': '£49/room', '59': '£59/room', '69': '£69/room', '79': '£79/room', '80+': '£80+/room'
-  };
-  const FEATURE_COLORS = {
-    'multi-room': '#3b82f6', alerts: '#f59e0b', reports: '#10b981',
-    advice: '#8b5cf6', sensors: '#06b6d4', app: '#64748b'
-  };
+  const HA_LABELS    = { yes: 'Yes', no: 'No', planning: 'Planning' };
+  const MQTT_LABELS  = { yes: 'Yes', no: 'No', 'not-sure': 'Not sure' };
+  const DOOR_LABELS  = { 'mostly-open': 'Mostly open', 'mostly-closed': 'Mostly closed', 'closed-at-night': 'Closed at night', varies: 'Varies' };
+  const HW_LABELS    = { 'very-comfortable': 'Very comfortable', comfortable: 'Comfortable', somewhat: 'Somewhat', 'not-comfortable': 'Not comfortable' };
+  const IAQ_LABELS   = { 'co2-overnight': 'CO₂ overnight', 'cooking-pm25': 'Cooking PM2.5', 'stale-air': 'Stale air', condensation: 'Condensation', allergies: 'Allergies', mould: 'Mould' };
+  const ROOM_LABELS  = { bedroom: 'Bedroom', 'home-office': 'Home office', kitchen: 'Kitchen', 'living-room': 'Living room', 'kids-room': 'Kids room', hallway: 'Hallway' };
+  const VENT_LABELS  = { 'no-hvac': 'No HVAC', mvhr: 'MVHR', 'trickle-vents': 'Trickle vents', 'extractor-fans': 'Extractor fans' };
   const COLORS = ['#3b82f6','#8b5cf6','#10b981','#f59e0b','#ef4444','#06b6d4','#ec4899','#84cc16'];
 
   // ── Charts store ──────────────────────────────────────
@@ -474,13 +485,17 @@
     renderCumulativeChart(signups);
     renderDailyChart(signups);
     renderFunnelChart(signups, events);
-    renderConcernChart(signups);
+    renderHomeTypeChart(signups);
     renderRoomsChart(signups);
-    renderPriceChart(signups);
-    renderFeaturesChart(signups);
+    renderDoorBehaviourChart(signups);
+    renderHaUsageChart(signups);
+    renderMqttUsageChart(signups);
+    renderHardwareComfortChart(signups);
+    renderIaqIssuesChart(signups);
+    renderImportantRoomsChart(signups);
+    renderVentilationChart(signups);
     renderCtaChart(events);
     renderReferrersChart(events);
-    renderPriceSignalsChart(signups, events);
     renderPageViewsChart(events);
     renderTable(signups);
 
@@ -503,25 +518,15 @@
       return d >= weekAgo;
     }).length;
 
-    const roomMap = { '1': 1, '2-3': 2.5, '4-5': 4.5, '6+': 6.5 };
+    // Handle both old room values (1, 2-3, 4-5, 6+) and new (1-2, 3-4, 5+, whole-home)
+    const roomMap = { '1': 1, '1-2': 1.5, '2-3': 2.5, '3-4': 3.5, '4-5': 4.5, '5+': 5.5, '6+': 6.5, 'whole-home': 8 };
     const roomVals = signups.map(s => roomMap[s.rooms]).filter(v => v !== undefined);
     const avgRooms = roomVals.length
       ? (roomVals.reduce((a, b) => a + b, 0) / roomVals.length).toFixed(1)
       : '—';
 
-    const concernCounts = {};
-    signups.forEach(s => { if (s.concern) concernCounts[s.concern] = (concernCounts[s.concern] || 0) + 1; });
-    const topConcern = Object.entries(concernCounts).sort((a, b) => b[1] - a[1])[0];
-
-    const featCounts = {};
-    signups.forEach(s => { (s.features || []).forEach(f => { featCounts[f] = (featCounts[f] || 0) + 1; }); });
-    const topFeat = Object.entries(featCounts).sort((a, b) => b[1] - a[1])[0];
-
-    const priceCounts = {};
-    signups.forEach(s => {
-      if (s.pricePoint) priceCounts[String(s.pricePoint)] = (priceCounts[String(s.pricePoint)] || 0) + 1;
-    });
-    const topPrice = Object.entries(priceCounts).sort((a, b) => b[1] - a[1])[0];
+    const haUsers   = signups.filter(s => s.usesHA === 'yes').length;
+    const newBuilds = signups.filter(s => s.homeType === 'new-build').length;
 
     const sessions = new Set(events.map(e => e.sessionId).filter(Boolean)).size;
     const conversion = sessions > 0 ? ((signups.length / sessions) * 100).toFixed(1) + '%' : '—';
@@ -530,12 +535,8 @@
     document.getElementById('stat-today').textContent      = todayCount;
     document.getElementById('stat-week').textContent       = weekCount;
     document.getElementById('stat-avg-rooms').textContent  = avgRooms;
-    document.getElementById('stat-top-concern').textContent =
-      topConcern ? (CONCERN_LABELS[topConcern[0]] || topConcern[0]) : '—';
-    document.getElementById('stat-top-feature').textContent =
-      topFeat ? (FEATURE_LABELS[topFeat[0]] || topFeat[0]) : '—';
-    document.getElementById('stat-top-price').textContent =
-      topPrice ? (PRICE_LABELS[topPrice[0]] || ('£' + topPrice[0])) : '—';
+    document.getElementById('stat-ha-users').textContent   = haUsers;
+    document.getElementById('stat-new-builds').textContent = newBuilds;
     document.getElementById('stat-conversion').textContent = conversion;
   }
 
@@ -544,26 +545,24 @@
     const pills = [];
 
     if (signups.length) {
-      const multiRoom = signups.filter(s => ['2-3','4-5','6+'].includes(s.rooms)).length;
-      pills.push('🏠 ' + Math.round((multiRoom / signups.length) * 100) + '% want 3+ rooms');
+      // Most common home type
+      const htCounts = {};
+      signups.forEach(s => { if (s.homeType) htCounts[s.homeType] = (htCounts[s.homeType] || 0) + 1; });
+      const topHt = Object.entries(htCounts).sort((a, b) => b[1] - a[1])[0];
+      if (topHt) pills.push('🏠 Most common home: ' + (HOME_TYPE_LABELS[topHt[0]] || topHt[0]));
 
-      const concernCounts = {};
-      signups.forEach(s => { if (s.concern) concernCounts[s.concern] = (concernCounts[s.concern] || 0) + 1; });
-      const topConcern = Object.entries(concernCounts).sort((a, b) => b[1] - a[1])[0];
-      if (topConcern)
-        pills.push('💡 Most common concern: ' + (CONCERN_LABELS[topConcern[0]] || topConcern[0]));
+      // % using HA
+      const haYes = signups.filter(s => s.usesHA === 'yes').length;
+      const haNew = signups.filter(s => s.usesHA != null).length;
+      if (haNew > 0) pills.push('🤖 ' + Math.round((haYes / haNew) * 100) + '% use Home Assistant');
 
-      const featCounts = {};
-      signups.forEach(s => { (s.features || []).forEach(f => { featCounts[f] = (featCounts[f] || 0) + 1; }); });
-      const topFeat = Object.entries(featCounts).sort((a, b) => b[1] - a[1])[0];
-      if (topFeat)
-        pills.push('⭐ Top feature: ' + (FEATURE_LABELS[topFeat[0]] || topFeat[0]) + ' (' + topFeat[1] + ' applicants)');
+      // Top IAQ issue
+      const iaqCounts = {};
+      signups.forEach(s => { (s.iaqIssues || []).forEach(i => { iaqCounts[i] = (iaqCounts[i] || 0) + 1; }); });
+      const topIaq = Object.entries(iaqCounts).sort((a, b) => b[1] - a[1])[0];
+      if (topIaq) pills.push('💨 Top IAQ issue: ' + (IAQ_LABELS[topIaq[0]] || topIaq[0]) + ' (' + topIaq[1] + ' applicants)');
 
-      const autoCount = signups.filter(s =>
-        (s.features || []).some(f => ['alerts','reports','advice'].includes(f))
-      ).length;
-      pills.push('🤖 ' + Math.round((autoCount / signups.length) * 100) + '% want smart home / automation features');
-
+      // Peak day
       const dayCounts = {};
       signups.forEach(s => {
         const d = s.timestamp?.toDate ? s.timestamp.toDate() : new Date(s.timestamp);
@@ -575,6 +574,10 @@
         const dateStr = new Date(peakDay[0]).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
         pills.push('📅 Peak signup day: ' + dateStr + ' (' + peakDay[1] + ' signups)');
       }
+
+      // % with multi-room needs (new values: 3-4, 5+, whole-home; old: 2-3, 4-5, 6+)
+      const multiRoom = signups.filter(s => ['2-3','4-5','6+','3-4','5+','whole-home'].includes(s.rooms)).length;
+      pills.push('🛏 ' + Math.round((multiRoom / signups.length) * 100) + '% have 3+ rooms');
     }
 
     document.getElementById('insights-strip').innerHTML =
@@ -654,33 +657,36 @@
     });
   }
 
-  // ── Concern breakdown ─────────────────────────────────
-  function renderConcernChart(signups) {
+  // ── Home Type ─────────────────────────────────────────
+  function renderHomeTypeChart(signups) {
+    const order = ['flat','terrace','semi-detached','detached','new-build','other'];
     const counts = {};
-    signups.forEach(s => { if (s.concern) counts[s.concern] = (counts[s.concern] || 0) + 1; });
-    const keys = Object.keys(counts);
-    makeChart('chart-concern', 'doughnut', {
-      labels: keys.map(k => CONCERN_LABELS[k] || k),
-      datasets: [{
-        data: keys.map(k => counts[k]),
-        backgroundColor: COLORS,
-        borderWidth: 2,
-        borderColor: '#0f1a2e'
-      }]
+    signups.forEach(s => { if (s.homeType) counts[s.homeType] = (counts[s.homeType] || 0) + 1; });
+    const keys = order.filter(k => counts[k]);
+    if (!keys.length) return;
+    makeChart('chart-home-type', 'doughnut', {
+      labels: keys.map(k => HOME_TYPE_LABELS[k] || k),
+      datasets: [{ data: keys.map(k => counts[k]), backgroundColor: COLORS, borderWidth: 2, borderColor: '#0f1a2e' }]
     });
   }
 
-  // ── Rooms per home ────────────────────────────────────
+  // ── Rooms per home (merged old + new values) ──────────
   function renderRoomsChart(signups) {
-    const order = ['1', '2-3', '4-5', '6+'];
-    const counts = {};
-    signups.forEach(s => { if (s.rooms) counts[s.rooms] = (counts[s.rooms] || 0) + 1; });
-    const labels = order.filter(k => counts[k]);
+    const buckets = {
+      'Small (1–2)': 0, 'Medium (3–4)': 0, 'Large (5+)': 0, 'Whole home': 0
+    };
+    signups.forEach(s => {
+      if (['1','1-2'].includes(s.rooms))           buckets['Small (1–2)']++;
+      else if (['2-3','3-4'].includes(s.rooms))    buckets['Medium (3–4)']++;
+      else if (['4-5','5+'].includes(s.rooms))     buckets['Large (5+)']++;
+      else if (['6+','whole-home'].includes(s.rooms)) buckets['Whole home']++;
+    });
+    const labels = Object.keys(buckets).filter(k => buckets[k] > 0);
     makeChart('chart-rooms', 'bar', {
       labels,
       datasets: [{
         label: 'Applications',
-        data: labels.map(l => counts[l] || 0),
+        data: labels.map(l => buckets[l]),
         backgroundColor: 'rgba(139,92,246,0.6)',
         borderColor: '#8b5cf6',
         borderWidth: 1,
@@ -689,44 +695,116 @@
     }, { plugins: { legend: { display: false } } });
   }
 
-  // ── Price interest ────────────────────────────────────
-  function renderPriceChart(signups) {
-    const order = ['49','59','69','79','80+'];
+  // ── Door Behaviour ────────────────────────────────────
+  function renderDoorBehaviourChart(signups) {
+    const order = ['mostly-open','mostly-closed','closed-at-night','varies'];
     const counts = {};
-    signups.forEach(s => {
-      if (s.pricePoint) counts[String(s.pricePoint)] = (counts[String(s.pricePoint)] || 0) + 1;
-    });
-    const labels = order.filter(k => counts[k]);
-    makeChart('chart-price', 'doughnut', {
-      labels: labels.map(k => PRICE_LABELS[k] || ('£' + k)),
-      datasets: [{
-        data: labels.map(k => counts[k]),
-        backgroundColor: COLORS,
-        borderWidth: 2,
-        borderColor: '#0f1a2e'
-      }]
+    signups.forEach(s => { if (s.doorBehaviour) counts[s.doorBehaviour] = (counts[s.doorBehaviour] || 0) + 1; });
+    const keys = order.filter(k => counts[k]);
+    if (!keys.length) return;
+    makeChart('chart-door', 'doughnut', {
+      labels: keys.map(k => DOOR_LABELS[k] || k),
+      datasets: [{ data: keys.map(k => counts[k]), backgroundColor: COLORS, borderWidth: 2, borderColor: '#0f1a2e' }]
     });
   }
 
-  // ── Feature interest ──────────────────────────────────
-  function renderFeaturesChart(signups) {
+  // ── HA Usage ──────────────────────────────────────────
+  function renderHaUsageChart(signups) {
+    const order = ['yes','no','planning'];
     const counts = {};
-    signups.forEach(s => { (s.features || []).forEach(f => { counts[f] = (counts[f] || 0) + 1; }); });
-    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-    makeChart('chart-features', 'bar', {
-      labels: sorted.map(([k]) => FEATURE_LABELS[k] || k),
+    signups.forEach(s => { if (s.usesHA) counts[s.usesHA] = (counts[s.usesHA] || 0) + 1; });
+    const keys = order.filter(k => counts[k]);
+    if (!keys.length) return;
+    makeChart('chart-ha', 'doughnut', {
+      labels: keys.map(k => HA_LABELS[k] || k),
+      datasets: [{ data: keys.map(k => counts[k]), backgroundColor: COLORS, borderWidth: 2, borderColor: '#0f1a2e' }]
+    });
+  }
+
+  // ── MQTT Usage ────────────────────────────────────────
+  function renderMqttUsageChart(signups) {
+    const order = ['yes','no','not-sure'];
+    const counts = {};
+    signups.forEach(s => { if (s.usesMQTT) counts[s.usesMQTT] = (counts[s.usesMQTT] || 0) + 1; });
+    const keys = order.filter(k => counts[k]);
+    if (!keys.length) return;
+    makeChart('chart-mqtt', 'doughnut', {
+      labels: keys.map(k => MQTT_LABELS[k] || k),
+      datasets: [{ data: keys.map(k => counts[k]), backgroundColor: COLORS, borderWidth: 2, borderColor: '#0f1a2e' }]
+    });
+  }
+
+  // ── Hardware Comfort ──────────────────────────────────
+  function renderHardwareComfortChart(signups) {
+    const order = ['very-comfortable','comfortable','somewhat','not-comfortable'];
+    const counts = {};
+    signups.forEach(s => { if (s.hardwareComfort) counts[s.hardwareComfort] = (counts[s.hardwareComfort] || 0) + 1; });
+    const keys = order.filter(k => counts[k]);
+    if (!keys.length) return;
+    makeChart('chart-hw-comfort', 'doughnut', {
+      labels: keys.map(k => HW_LABELS[k] || k),
+      datasets: [{ data: keys.map(k => counts[k]), backgroundColor: COLORS, borderWidth: 2, borderColor: '#0f1a2e' }]
+    });
+  }
+
+  // ── Top IAQ Issues ────────────────────────────────────
+  function renderIaqIssuesChart(signups) {
+    const order = ['co2-overnight','cooking-pm25','stale-air','condensation','allergies','mould'];
+    const counts = {};
+    signups.forEach(s => { (s.iaqIssues || []).forEach(i => { counts[i] = (counts[i] || 0) + 1; }); });
+    const keys = order.filter(k => counts[k]);
+    if (!keys.length) return;
+    makeChart('chart-iaq-issues', 'bar', {
+      labels: keys.map(k => IAQ_LABELS[k] || k),
       datasets: [{
-        label: 'Interest',
-        data: sorted.map(([, v]) => v),
-        backgroundColor: sorted.map(([k]) => (FEATURE_COLORS[k] || '#3b82f6') + 'aa'),
-        borderColor:      sorted.map(([k]) => FEATURE_COLORS[k]  || '#3b82f6'),
+        label: 'Count',
+        data: keys.map(k => counts[k]),
+        backgroundColor: 'rgba(16,185,129,0.6)',
+        borderColor: '#10b981',
         borderWidth: 1,
         borderRadius: 4
       }]
-    }, {
-      indexAxis: 'y',
-      plugins: { legend: { display: false } }
-    });
+    }, { indexAxis: 'y', plugins: { legend: { display: false } } });
+  }
+
+  // ── Important Rooms ───────────────────────────────────
+  function renderImportantRoomsChart(signups) {
+    const order = ['bedroom','home-office','kitchen','living-room','kids-room','hallway'];
+    const counts = {};
+    signups.forEach(s => { (s.importantRooms || []).forEach(r => { counts[r] = (counts[r] || 0) + 1; }); });
+    const keys = order.filter(k => counts[k]);
+    if (!keys.length) return;
+    makeChart('chart-important-rooms', 'bar', {
+      labels: keys.map(k => ROOM_LABELS[k] || k),
+      datasets: [{
+        label: 'Count',
+        data: keys.map(k => counts[k]),
+        backgroundColor: 'rgba(245,158,11,0.6)',
+        borderColor: '#f59e0b',
+        borderWidth: 1,
+        borderRadius: 4
+      }]
+    }, { indexAxis: 'y', plugins: { legend: { display: false } } });
+  }
+
+  // ── Ventilation Type ──────────────────────────────────
+  function renderVentilationChart(signups) {
+    const order = ['no-hvac','mvhr','trickle-vents','extractor-fans'];
+    const counts = {};
+    signups.forEach(s => { (s.ventilation || []).forEach(v => { counts[v] = (counts[v] || 0) + 1; }); });
+    const keys = order.filter(k => counts[k]);
+    if (!keys.length) return;
+    makeChart('chart-ventilation', 'bar', {
+      labels: keys.map(k => VENT_LABELS[k] || k),
+      datasets: [{
+        label: 'Count',
+        data: keys.map(k => counts[k]),
+        backgroundColor: 'rgba(6,182,212,0.6)',
+        borderColor: '#06b6d4',
+        borderWidth: 1,
+        borderRadius: 4
+      }]
+    }, { indexAxis: 'y', plugins: { legend: { display: false } } });
   }
 
   // ── CTA performance ───────────────────────────────────
@@ -775,29 +853,6 @@
     });
   }
 
-  // ── Price signals (hover vs click vs apply) ───────────
-  function renderPriceSignalsChart(signups, events) {
-    const tiers = ['49','59','69','79'];
-    const hovers  = tiers.map(t =>
-      events.filter(e => e.type === 'price_hover' && String(e.value) === t).length
-    );
-    const clicks  = tiers.map(t =>
-      events.filter(e =>
-        (e.type === 'price_click' || e.type === ('price-cta-' + t)) &&
-        (String(e.value) === t || e.type === ('price-cta-' + t))
-      ).length
-    );
-    const applies = tiers.map(t => signups.filter(s => String(s.pricePoint) === t).length);
-    makeChart('chart-price-signals', 'bar', {
-      labels: tiers.map(t => '£' + t + '/room'),
-      datasets: [
-        { label: 'Hovers',       data: hovers,  backgroundColor: 'rgba(100,116,139,0.6)', borderColor: '#64748b', borderWidth: 1, borderRadius: 3 },
-        { label: 'Clicks',       data: clicks,  backgroundColor: 'rgba(59,130,246,0.6)',  borderColor: '#3b82f6', borderWidth: 1, borderRadius: 3 },
-        { label: 'Applications', data: applies, backgroundColor: 'rgba(16,185,129,0.6)',  borderColor: '#10b981', borderWidth: 1, borderRadius: 3 }
-      ]
-    });
-  }
-
   // ── Page views over time ──────────────────────────────
   function renderPageViewsChart(events) {
     const dayCounts = {};
@@ -838,51 +893,43 @@
       const d = s.timestamp?.toDate ? s.timestamp.toDate() : new Date(s.timestamp);
       const date = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
 
-      const hasHA = (s.features || []).some(f => ['alerts','reports'].includes(f));
-      const emailCell = escHtml(s.email || '—') + (hasHA ? '<span class="ha-badge">HA</span>' : '');
-
-      const featureTags = (s.features || []).map(f => {
-        const slug = f.replace(/[^a-z0-9]/g, '-');
-        return '<span class="tag tag-' + escHtml(slug) + '">' + escHtml(FEATURE_LABELS[f] || f) + '</span>';
-      }).join('');
-
-      const priceLabel = PRICE_LABELS[String(s.pricePoint)] || (s.pricePoint ? '£' + s.pricePoint : '—');
-      const concernLabel = CONCERN_LABELS[s.concern] || s.concern || '—';
+      const homeTypeLabel = HOME_TYPE_LABELS[s.homeType] || s.homeType || '—';
+      const haLabel  = HA_LABELS[s.usesHA]   || s.usesHA   || '—';
+      const mqttLabel = MQTT_LABELS[s.usesMQTT] || s.usesMQTT || '—';
+      const issues = (s.iaqIssues || []).map(i => IAQ_LABELS[i] || i).join(', ') || '—';
 
       let ref = s.referrer || '—';
       try { ref = new URL(ref).hostname || 'Direct'; } catch {}
 
-      const session = s.sessionId ? escHtml(s.sessionId.slice(0, 8)) + '…' : '—';
-
       return '<tr>'
         + '<td style="white-space:nowrap">' + escHtml(date) + '</td>'
-        + '<td>' + emailCell + '</td>'
+        + '<td>' + escHtml(s.email || '—') + '</td>'
+        + '<td>' + escHtml(homeTypeLabel) + '</td>'
         + '<td>' + escHtml(s.rooms || '—') + '</td>'
-        + '<td>' + escHtml(priceLabel) + '</td>'
-        + '<td>' + escHtml(concernLabel) + '</td>'
-        + '<td>' + (featureTags || '—') + '</td>'
+        + '<td>' + escHtml(haLabel) + '</td>'
+        + '<td>' + escHtml(mqttLabel) + '</td>'
+        + '<td style="font-size:.8rem">' + escHtml(issues) + '</td>'
         + '<td style="font-size:.8rem;color:#64748b">' + escHtml(ref) + '</td>'
-        + '<td style="font-size:.75rem;color:#64748b;white-space:nowrap">' + session + '</td>'
         + '</tr>';
     }).join('');
   }
 
   // ── Filter + re-render table ──────────────────────────
   function filterAndRenderTable() {
-    const search  = document.getElementById('table-search').value.toLowerCase().trim();
-    const concern = document.getElementById('filter-concern').value;
-    const rooms   = document.getElementById('filter-rooms').value;
+    const search   = document.getElementById('table-search').value.toLowerCase().trim();
+    const homeType = document.getElementById('filter-home-type').value;
+    const rooms    = document.getElementById('filter-rooms').value;
 
     let filtered = window.allSignups;
-    if (search)  filtered = filtered.filter(s => (s.email || '').toLowerCase().includes(search));
-    if (concern) filtered = filtered.filter(s => s.concern === concern);
-    if (rooms)   filtered = filtered.filter(s => s.rooms === rooms);
+    if (search)   filtered = filtered.filter(s => (s.email || '').toLowerCase().includes(search));
+    if (homeType) filtered = filtered.filter(s => s.homeType === homeType);
+    if (rooms)    filtered = filtered.filter(s => s.rooms === rooms);
 
     renderTable(filtered);
   }
 
   document.getElementById('table-search').addEventListener('input', filterAndRenderTable);
-  document.getElementById('filter-concern').addEventListener('change', filterAndRenderTable);
+  document.getElementById('filter-home-type').addEventListener('change', filterAndRenderTable);
   document.getElementById('filter-rooms').addEventListener('change', filterAndRenderTable);
 
   // ── Utilities ─────────────────────────────────────────
@@ -899,16 +946,23 @@
       : (await db.collection('waitlist').orderBy('timestamp', 'desc').get())
           .docs.map(d => ({ id: d.id, ...d.data() }));
 
-    const rows = [['Date','Email','Rooms','Price Point','Concern','Features','Referrer','Session ID','User Agent']];
+    const rows = [['Date','Email','Home Type','Rooms','Door Behaviour','HA','MQTT','IAQ Interest','IAQ Issues','Important Rooms','Ventilation','Hardware Comfort','Why Pilot','Referrer','Session ID','User Agent']];
     data.forEach(s => {
       const d = s.timestamp?.toDate ? s.timestamp.toDate() : new Date(s.timestamp);
       rows.push([
         d.toISOString(),
         s.email || '',
+        s.homeType || '',
         s.rooms || '',
-        s.pricePoint || '',
-        s.concern || '',
-        (s.features || []).join('; '),
+        s.doorBehaviour || '',
+        s.usesHA || '',
+        s.usesMQTT || '',
+        s.iaqInterest || '',
+        (s.iaqIssues || []).join('; '),
+        (s.importantRooms || []).join('; '),
+        (s.ventilation || []).join('; '),
+        s.hardwareComfort || '',
+        s.whyPilot || '',
         s.referrer || '',
         s.sessionId || '',
         s.userAgent || ''

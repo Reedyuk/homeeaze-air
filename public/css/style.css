@@ -795,7 +795,7 @@ section { padding: 100px 0; }
 .req { color: var(--blue); }
 .select-many { color: var(--text-muted); font-weight: 400; font-size: .8rem; }
 
-input[type="email"], select {
+input[type="email"], select, textarea {
   width: 100%;
   background: var(--bg-2);
   border: 1.5px solid var(--border-2);
@@ -808,8 +808,25 @@ input[type="email"], select {
   transition: border-color .2s;
   appearance: none;
 }
-input[type="email"]:focus, select:focus { border-color: var(--blue); }
-input::placeholder { color: var(--text-muted); }
+input[type="email"]:focus, select:focus, textarea:focus { border-color: var(--blue); }
+input::placeholder, textarea::placeholder { color: var(--text-muted); }
+textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+.form-section {
+  border-top: 1px solid var(--border);
+  margin: 28px 0 24px;
+  padding-top: 24px;
+}
+
+.form-section-label {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 18px;
+  display: block;
+}
 
 select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='%236b7280'%3E%3Cpath d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
 

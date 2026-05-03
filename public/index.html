@@ -1022,55 +1022,153 @@
 
       <div class="pilot-form-wrap reveal">
         <form id="waitlist-form">
+
+          <!-- Section 1: About your home -->
+          <span class="form-section-label">About your home</span>
+
+          <div class="form-group">
+            <label>What type of home do you live in?</label>
+            <div class="radio-row">
+              <label class="choice"><input type="radio" name="homeType" value="flat"> Flat</label>
+              <label class="choice"><input type="radio" name="homeType" value="terrace"> Terrace</label>
+              <label class="choice"><input type="radio" name="homeType" value="semi-detached"> Semi-detached</label>
+              <label class="choice"><input type="radio" name="homeType" value="detached"> Detached</label>
+              <label class="choice"><input type="radio" name="homeType" value="new-build"> New build</label>
+              <label class="choice"><input type="radio" name="homeType" value="other"> Other</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Do you have any mechanical ventilation? <span class="select-many">(select all that apply)</span></label>
+            <div class="check-grid">
+              <label class="choice"><input type="checkbox" name="ventilation" value="no-hvac"> No HVAC</label>
+              <label class="choice"><input type="checkbox" name="ventilation" value="mvhr"> MVHR</label>
+              <label class="choice"><input type="checkbox" name="ventilation" value="trickle-vents"> Trickle vents</label>
+              <label class="choice"><input type="checkbox" name="ventilation" value="extractor-fans"> Extractor fans</label>
+              <label class="choice"><input type="checkbox" name="ventilation" value="not-sure"> Not sure</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>How many rooms would you want to monitor?</label>
+            <div class="radio-row">
+              <label class="choice"><input type="radio" name="rooms" value="1-2"> 1–2 rooms</label>
+              <label class="choice"><input type="radio" name="rooms" value="3-4"> 3–4 rooms</label>
+              <label class="choice"><input type="radio" name="rooms" value="5+"> 5+ rooms</label>
+              <label class="choice"><input type="radio" name="rooms" value="whole-home"> Whole home</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Do you usually keep interior doors open or closed?</label>
+            <div class="radio-row">
+              <label class="choice"><input type="radio" name="doorBehaviour" value="mostly-open"> Mostly open</label>
+              <label class="choice"><input type="radio" name="doorBehaviour" value="mostly-closed"> Mostly closed</label>
+              <label class="choice"><input type="radio" name="doorBehaviour" value="closed-at-night"> Closed at night</label>
+              <label class="choice"><input type="radio" name="doorBehaviour" value="varies"> Varies</label>
+            </div>
+          </div>
+
+          <!-- Section 2: Air quality concerns -->
+          <div class="form-section">
+            <span class="form-section-label">Your air quality concerns</span>
+          </div>
+
+          <div class="form-group">
+            <label for="iaqInterest">What made you interested in multi-room air quality monitoring?</label>
+            <textarea id="iaqInterest" name="iaqInterest" placeholder="e.g. My bedroom always feels stuffy overnight…"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Which issues do you experience? <span class="select-many">(select all that apply)</span></label>
+            <div class="check-grid">
+              <label class="choice"><input type="checkbox" name="iaqIssues" value="co2-overnight"> CO₂ overnight</label>
+              <label class="choice"><input type="checkbox" name="iaqIssues" value="cooking-pm25"> Cooking PM2.5</label>
+              <label class="choice"><input type="checkbox" name="iaqIssues" value="stale-air"> Stale air</label>
+              <label class="choice"><input type="checkbox" name="iaqIssues" value="condensation"> Condensation</label>
+              <label class="choice"><input type="checkbox" name="iaqIssues" value="allergies"> Allergies</label>
+              <label class="choice"><input type="checkbox" name="iaqIssues" value="mould"> Mould</label>
+              <label class="choice"><input type="checkbox" name="iaqIssues" value="other"> Other</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Which rooms matter most to you? <span class="select-many">(select all that apply)</span></label>
+            <div class="check-grid">
+              <label class="choice"><input type="checkbox" name="importantRooms" value="bedroom"> Bedroom</label>
+              <label class="choice"><input type="checkbox" name="importantRooms" value="home-office"> Home office</label>
+              <label class="choice"><input type="checkbox" name="importantRooms" value="kitchen"> Kitchen</label>
+              <label class="choice"><input type="checkbox" name="importantRooms" value="living-room"> Living room</label>
+              <label class="choice"><input type="checkbox" name="importantRooms" value="kids-room"> Kids' room</label>
+              <label class="choice"><input type="checkbox" name="importantRooms" value="hallway"> Hallway</label>
+            </div>
+          </div>
+
+          <!-- Section 3: Technical setup -->
+          <div class="form-section">
+            <span class="form-section-label">Your technical setup</span>
+          </div>
+
+          <div class="form-group">
+            <label>Do you use Home Assistant?</label>
+            <div class="radio-row">
+              <label class="choice"><input type="radio" name="usesHA" value="yes"> Yes</label>
+              <label class="choice"><input type="radio" name="usesHA" value="no"> No</label>
+              <label class="choice"><input type="radio" name="usesHA" value="planning"> Planning to</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Do you use MQTT?</label>
+            <div class="radio-row">
+              <label class="choice"><input type="radio" name="usesMQTT" value="yes"> Yes</label>
+              <label class="choice"><input type="radio" name="usesMQTT" value="no"> No</label>
+              <label class="choice"><input type="radio" name="usesMQTT" value="not-sure"> Not sure</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>How comfortable are you installing early prototype hardware?</label>
+            <div class="radio-row">
+              <label class="choice"><input type="radio" name="hardwareComfort" value="very-comfortable"> Very comfortable</label>
+              <label class="choice"><input type="radio" name="hardwareComfort" value="comfortable"> Comfortable</label>
+              <label class="choice"><input type="radio" name="hardwareComfort" value="somewhat"> Somewhat</label>
+              <label class="choice"><input type="radio" name="hardwareComfort" value="not-comfortable"> Not comfortable</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>How often could you share feedback during the pilot?</label>
+            <div class="radio-row">
+              <label class="choice"><input type="radio" name="feedbackComfort" value="weekly"> Weekly</label>
+              <label class="choice"><input type="radio" name="feedbackComfort" value="occasionally"> Occasionally</label>
+              <label class="choice"><input type="radio" name="feedbackComfort" value="only-if-needed"> Only if needed</label>
+            </div>
+          </div>
+
+          <!-- Section 4: Expectations -->
+          <div class="form-section">
+            <span class="form-section-label">Your expectations</span>
+          </div>
+
+          <div class="form-group">
+            <label for="successDefinition">What would success look like for you in this pilot?</label>
+            <textarea id="successDefinition" name="successDefinition" placeholder="e.g. Know when my bedroom CO₂ is too high and automate a window…"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="whyPilot">Why do you want to be part of the pilot programme?</label>
+            <textarea id="whyPilot" name="whyPilot" placeholder="Tell us a bit about yourself and why you'd be a great tester…"></textarea>
+          </div>
+
+          <!-- Email + submit -->
+          <div class="form-section">
+            <span class="form-section-label">Almost done</span>
+          </div>
+
           <div class="form-group">
             <label for="email">Email address <span class="req">*</span></label>
             <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
-          </div>
-
-          <div class="form-group">
-            <label>How many rooms would you monitor?</label>
-            <div class="radio-row">
-              <label class="choice"><input type="radio" name="rooms" value="1"> 1 room</label>
-              <label class="choice"><input type="radio" name="rooms" value="2-3"> 2–3 rooms</label>
-              <label class="choice"><input type="radio" name="rooms" value="4-5"> 4–5 rooms</label>
-              <label class="choice"><input type="radio" name="rooms" value="6+"> 6+ rooms</label>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>Which features matter most? <span class="select-many">(select all that apply)</span></label>
-            <div class="check-grid">
-              <label class="choice"><input type="checkbox" name="features" value="multi-room"> Multi-room view</label>
-              <label class="choice"><input type="checkbox" name="features" value="alerts"> Smart alerts</label>
-              <label class="choice"><input type="checkbox" name="features" value="reports"> Weekly reports</label>
-              <label class="choice"><input type="checkbox" name="features" value="advice"> Actionable advice</label>
-              <label class="choice"><input type="checkbox" name="features" value="sensors"> Sensor accuracy</label>
-              <label class="choice"><input type="checkbox" name="features" value="app"> Mobile app</label>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>Which price point interests you most?</label>
-            <div class="radio-row">
-              <label class="choice"><input type="radio" name="pricePoint" value="49"> £49/room</label>
-              <label class="choice"><input type="radio" name="pricePoint" value="59"> £59/room</label>
-              <label class="choice"><input type="radio" name="pricePoint" value="69"> £69/room</label>
-              <label class="choice"><input type="radio" name="pricePoint" value="79"> £79/room</label>
-              <label class="choice"><input type="radio" name="pricePoint" value="80+"> Over £79</label>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="concern">What's your main air quality concern?</label>
-            <select id="concern" name="concern">
-              <option value="">Select one...</option>
-              <option value="kids">Children's health</option>
-              <option value="sleep">Sleep quality</option>
-              <option value="asthma">Asthma / allergies</option>
-              <option value="wellness">General wellness</option>
-              <option value="wfh">Home office productivity</option>
-              <option value="other">Other</option>
-            </select>
           </div>
 
           <button type="submit" class="btn btn-primary btn-lg btn-full" id="submit-btn">

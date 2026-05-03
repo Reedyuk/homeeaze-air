@@ -51,38 +51,50 @@ form.addEventListener('submit', async e => {
   if (!email) return;
 
   submitBtn.disabled    = true;
-  submitBtn.textContent = 'Joining…';
+  submitBtn.textContent = 'Submitting…';
 
-  const rooms      = form.querySelector('input[name="rooms"]:checked')?.value ?? null;
-  const pricePoint = form.querySelector('input[name="pricePoint"]:checked')?.value ?? null;
-  const concern    = form.querySelector('select[name="concern"]').value || null;
-  const features   = [...form.querySelectorAll('input[name="features"]:checked')].map(cb => cb.value);
+  const radio = name => form.querySelector(`input[name="${name}"]:checked`)?.value ?? null;
+  const checks = name => [...form.querySelectorAll(`input[name="${name}"]:checked`)].map(cb => cb.value);
+  const text   = name => (form.querySelector(`[name="${name}"]`)?.value ?? '').trim() || null;
 
   try {
     await addDoc(collection(db, 'waitlist'), {
       email,
-      rooms,
-      features,
-      pricePoint,
-      concern,
+      // Home environment
+      homeType:         radio('homeType'),
+      ventilation:      checks('ventilation'),
+      rooms:            radio('rooms'),
+      doorBehaviour:    radio('doorBehaviour'),
+      // Air quality concerns
+      iaqInterest:      text('iaqInterest'),
+      iaqIssues:        checks('iaqIssues'),
+      importantRooms:   checks('importantRooms'),
+      // Technical setup
+      usesHA:           radio('usesHA'),
+      usesMQTT:         radio('usesMQTT'),
+      hardwareComfort:  radio('hardwareComfort'),
+      feedbackComfort:  radio('feedbackComfort'),
+      // Expectations
+      successDefinition: text('successDefinition'),
+      whyPilot:         text('whyPilot'),
+      // Meta
       sessionId,
       referrer:   document.referrer || 'direct',
       userAgent:  navigator.userAgent,
       timestamp:  serverTimestamp(),
     });
 
-    trackEvent('waitlist_signup', pricePoint);
+    trackEvent('waitlist_signup', radio('rooms'));
 
     form.style.display = 'none';
     successMsg.classList.remove('hidden');
     successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
   } catch (err) {
-    console.error('Waitlist submission failed:', err);
+    console.error('Pilot application failed:', err);
     submitBtn.disabled    = false;
-    submitBtn.textContent = 'Join the Waitlist →';
+    submitBtn.textContent = 'Apply for Pilot →';
 
-    // Remove any previous error before showing a new one
     form.querySelector('.form-error')?.remove();
     const errEl = Object.assign(document.createElement('p'), {
       className: 'form-error',
