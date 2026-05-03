@@ -1706,6 +1706,74 @@ footer {
 }
 
 /* ============================================
+   Docs Teaser Section
+   ============================================ */
+#docs-teaser { background: var(--bg-2); }
+#docs-teaser h2,
+#docs-teaser .section-label { text-align: center; }
+
+.docs-teaser-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 52px;
+}
+
+.docs-teaser-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-decoration: none;
+  transition: border-color .2s, transform .2s;
+}
+
+.docs-teaser-card:hover {
+  border-color: var(--blue);
+  transform: translateY(-3px);
+}
+
+.docs-teaser-icon {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+}
+
+.docs-teaser-card h3 {
+  color: var(--text);
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.docs-teaser-card p {
+  font-size: .875rem;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.docs-teaser-link {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--blue);
+}
+
+.docs-teaser-cta {
+  text-align: center;
+  margin-top: 36px;
+}
+
+@media (max-width: 860px) {
+  .docs-teaser-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .docs-teaser-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================
    Pilot Programme Section
    ============================================ */
 #pilot-details {
