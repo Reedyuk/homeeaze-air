@@ -3,27 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HomeEaze Air — Admin Dashboard</title>
+  <title>HomeEaze Air — Analytics Dashboard</title>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <style>
     :root {
-      --bg: #050812;
-      --bg-2: #0b1322;
-      --bg-card: #0f1a2e;
-      --border: rgba(255,255,255,0.08);
-      --blue: #3b82f6;
-      --purple: #8b5cf6;
-      --amber: #f59e0b;
-      --green: #10b981;
-      --red: #ef4444;
-      --text: #e2e8f0;
-      --muted: #64748b;
+      --bg: #050812; --bg-2: #0b1322; --bg-card: #0f1a2e; --bg-card-3: #131d33;
+      --border: rgba(255,255,255,0.08); --border-2: rgba(255,255,255,0.14);
+      --blue: #3b82f6; --purple: #8b5cf6; --amber: #f59e0b; --green: #10b981; --red: #ef4444; --cyan: #06b6d4;
+      --text: #e2e8f0; --text-2: #94a3b8; --muted: #64748b;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    body { font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
     /* ── Login screen ── */
     #login-screen {
@@ -44,55 +37,93 @@
     header {
       background: var(--bg-2); border-bottom: 1px solid var(--border);
       padding: 14px 28px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 10;
     }
+    .header-left { display: flex; align-items: baseline; gap: 10px; }
     header h1 { font-size: 1.1rem; font-weight: 700; color: var(--blue); }
-    .header-right { display: flex; align-items: center; gap: 16px; }
+    .header-subtitle { font-size: .78rem; color: var(--muted); }
+    .header-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .last-updated { font-size: .78rem; color: var(--muted); }
     .user-email { font-size: .85rem; color: var(--muted); }
     .btn-sm {
       padding: 6px 14px; border-radius: 6px; border: 1px solid var(--border);
       background: transparent; color: var(--text); font-size: .85rem; cursor: pointer;
-      transition: border-color .2s;
+      transition: border-color .2s, color .2s;
     }
     .btn-sm:hover { border-color: var(--blue); }
+    .btn-danger { border-color: rgba(239,68,68,.3); }
+    .btn-danger:hover { border-color: var(--red); color: var(--red); }
     main { padding: 28px; max-width: 1400px; margin: 0 auto; }
 
     /* ── Stat cards ── */
     .stats-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;
-      margin-bottom: 28px;
+      display: grid; grid-template-columns: repeat(8, 1fr); gap: 12px; margin-bottom: 20px;
     }
     .stat-card {
       background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
-      padding: 20px; display: flex; flex-direction: column; gap: 6px;
+      padding: 16px 14px; display: flex; flex-direction: column; gap: 6px;
     }
-    .stat-label { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
-    .stat-value { font-size: 2rem; font-weight: 700; }
+    .stat-label { font-size: .7rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+    .stat-value { font-size: 1.65rem; font-weight: 700; line-height: 1.1; }
+    .stat-value.sm { font-size: 1.05rem; margin-top: 4px; }
     .stat-value.blue { color: var(--blue); }
     .stat-value.green { color: var(--green); }
     .stat-value.amber { color: var(--amber); }
     .stat-value.purple { color: var(--purple); }
+    .stat-value.cyan { color: var(--cyan); }
+
+    /* ── Insights strip ── */
+    .insights-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+    .insight-pill {
+      background: rgba(59,130,246,.1); border: 1px solid rgba(59,130,246,.2);
+      border-radius: 20px; padding: 5px 12px; font-size: .82rem; color: var(--text-2);
+    }
+
+    /* ── Section headers ── */
+    .section-header { margin-bottom: 12px; margin-top: 8px; }
+    .section-header h2 {
+      font-size: .78rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--muted);
+    }
 
     /* ── Charts ── */
-    .charts-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;
-      margin-bottom: 28px;
-    }
+    .charts-row { display: grid; gap: 16px; }
+    .charts-row-3 { grid-template-columns: repeat(3, 1fr); margin-bottom: 28px; }
+    .charts-row-2 { grid-template-columns: repeat(2, 1fr); margin-bottom: 28px; }
     .chart-card {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 20px; border-left: 3px solid transparent;
     }
-    .chart-card h3 { font-size: .9rem; font-weight: 600; margin-bottom: 16px; color: var(--text); }
+    .chart-card.growth { border-left-color: var(--blue); }
+    .chart-card.profile { border-left-color: var(--purple); }
+    .chart-card.engagement { border-left-color: var(--amber); }
+    .chart-card.price-s { border-left-color: var(--green); }
+    .chart-card h3 { font-size: .88rem; font-weight: 600; margin-bottom: 14px; color: var(--text); }
     .chart-wrap { position: relative; height: 220px; }
+    .chart-wrap-tall { position: relative; height: 260px; }
 
-    /* ── Signups table ── */
-    .table-section { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 28px; }
-    .table-header {
-      padding: 16px 20px; display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 1px solid var(--border);
+    /* ── Table section ── */
+    .table-section {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; margin-bottom: 28px;
     }
-    .table-header h3 { font-size: .95rem; font-weight: 600; }
+    .table-header { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+    .table-header h3 { font-size: .95rem; font-weight: 600; margin-bottom: 14px; }
+    .table-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .table-search {
+      padding: 7px 12px; background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 6px; color: var(--text); font-size: .85rem; min-width: 190px; outline: none;
+    }
+    .table-search:focus { border-color: var(--blue); }
+    .table-filter {
+      padding: 7px 10px; background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 6px; color: var(--text); font-size: .85rem; cursor: pointer; outline: none;
+    }
+    .table-filter:focus { border-color: var(--blue); }
+    .table-count { font-size: .82rem; color: var(--muted); margin-left: auto; }
     .btn-export {
       padding: 7px 16px; background: var(--green); color: #fff; border: none; border-radius: 7px;
-      font-size: .85rem; font-weight: 600; cursor: pointer; transition: opacity .2s;
+      font-size: .85rem; font-weight: 600; cursor: pointer; transition: opacity .2s; white-space: nowrap;
     }
     .btn-export:hover { opacity: .85; }
     .table-wrap { overflow-x: auto; }
@@ -105,18 +136,42 @@
     tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; }
     tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: rgba(59,130,246,.06); }
-    tbody td { padding: 10px 16px; vertical-align: top; max-width: 240px; word-break: break-word; }
+    tbody td { padding: 10px 16px; vertical-align: top; max-width: 220px; word-break: break-word; }
+
+    /* ── Feature tags ── */
     .tag {
       display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: .72rem;
-      font-weight: 600; margin: 2px 2px 2px 0; background: rgba(59,130,246,.15); color: var(--blue);
+      font-weight: 600; margin: 2px 2px 2px 0;
+    }
+    .tag-multi-room { background: rgba(59,130,246,.15);  color: var(--blue); }
+    .tag-alerts     { background: rgba(245,158,11,.15);  color: var(--amber); }
+    .tag-reports    { background: rgba(16,185,129,.15);  color: var(--green); }
+    .tag-advice     { background: rgba(139,92,246,.15);  color: var(--purple); }
+    .tag-sensors    { background: rgba(6,182,212,.15);   color: var(--cyan); }
+    .tag-app        { background: rgba(100,116,139,.15); color: var(--muted); }
+
+    /* ── HA badge ── */
+    .ha-badge {
+      display: inline-block; padding: 1px 6px; border-radius: 4px; font-size: .68rem;
+      font-weight: 700; background: rgba(245,158,11,.2); color: var(--amber);
+      border: 1px solid rgba(245,158,11,.3); margin-left: 6px; vertical-align: middle;
     }
 
-    /* ── Loading / empty ── */
+    /* ── Misc ── */
     .loading { text-align: center; padding: 48px; color: var(--muted); }
 
-    @media (max-width: 640px) {
+    /* ── Responsive ── */
+    @media (max-width: 1100px) {
+      .stats-grid { grid-template-columns: repeat(4, 1fr); }
+      .charts-row-3 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 700px) {
       main { padding: 16px; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .charts-row-3, .charts-row-2 { grid-template-columns: 1fr; }
+      header { padding: 12px 16px; }
+      .last-updated { display: none; }
+      .table-count { margin-left: 0; }
     }
   </style>
 </head>
@@ -138,72 +193,147 @@
 <!-- Dashboard -->
 <div id="app">
   <header>
-    <h1>✦ HomeEaze Air — Analytics</h1>
+    <div class="header-left">
+      <h1>✦ HomeEaze Air</h1>
+      <span class="header-subtitle">Analytics Dashboard</span>
+    </div>
     <div class="header-right">
+      <span class="last-updated" id="last-updated"></span>
       <span class="user-email" id="user-email"></span>
       <button class="btn-sm" id="btn-refresh">↻ Refresh</button>
-      <button class="btn-sm" id="btn-logout">Sign out</button>
+      <button class="btn-sm btn-danger" id="btn-logout">Sign out</button>
     </div>
   </header>
   <main>
 
-    <!-- Stats row -->
+    <!-- 8 Stat cards -->
     <div class="stats-grid">
       <div class="stat-card">
-        <span class="stat-label">Total Signups</span>
-        <span class="stat-value green" id="stat-signups">—</span>
+        <span class="stat-label">Total Applications</span>
+        <span class="stat-value green" id="stat-total">—</span>
       </div>
       <div class="stat-card">
-        <span class="stat-label">Page Views</span>
-        <span class="stat-value blue" id="stat-views">—</span>
+        <span class="stat-label">Today</span>
+        <span class="stat-value blue" id="stat-today">—</span>
       </div>
       <div class="stat-card">
-        <span class="stat-label">Unique Sessions</span>
-        <span class="stat-value purple" id="stat-sessions">—</span>
+        <span class="stat-label">This Week</span>
+        <span class="stat-value purple" id="stat-week">—</span>
       </div>
       <div class="stat-card">
-        <span class="stat-label">Conversion Rate</span>
+        <span class="stat-label">Avg Rooms</span>
+        <span class="stat-value cyan" id="stat-avg-rooms">—</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Top Concern</span>
+        <span class="stat-value amber sm" id="stat-top-concern">—</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Top Feature</span>
+        <span class="stat-value purple sm" id="stat-top-feature">—</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Top Price</span>
+        <span class="stat-value green" id="stat-top-price">—</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Conversion</span>
         <span class="stat-value amber" id="stat-conversion">—</span>
       </div>
-      <div class="stat-card">
-        <span class="stat-label">CTA Clicks</span>
-        <span class="stat-value blue" id="stat-cta">—</span>
+    </div>
+
+    <!-- Insights strip -->
+    <div class="insights-strip" id="insights-strip"></div>
+
+    <!-- Row 1: Growth -->
+    <div class="section-header"><h2>Growth</h2></div>
+    <div class="charts-row charts-row-3">
+      <div class="chart-card growth">
+        <h3>Cumulative Growth</h3>
+        <div class="chart-wrap"><canvas id="chart-cumulative"></canvas></div>
+      </div>
+      <div class="chart-card growth">
+        <h3>Daily Applications</h3>
+        <div class="chart-wrap"><canvas id="chart-daily"></canvas></div>
+      </div>
+      <div class="chart-card growth">
+        <h3>Conversion Funnel</h3>
+        <div class="chart-wrap"><canvas id="chart-funnel"></canvas></div>
       </div>
     </div>
 
-    <!-- Charts -->
-    <div class="charts-grid">
-      <div class="chart-card">
-        <h3>Signups over time</h3>
-        <div class="chart-wrap"><canvas id="chart-signups-over-time"></canvas></div>
+    <!-- Row 2: Applicant Profile -->
+    <div class="section-header"><h2>Applicant Profile</h2></div>
+    <div class="charts-row charts-row-3">
+      <div class="chart-card profile">
+        <h3>Concern Breakdown</h3>
+        <div class="chart-wrap"><canvas id="chart-concern"></canvas></div>
       </div>
-      <div class="chart-card">
-        <h3>Price point interest</h3>
-        <div class="chart-wrap"><canvas id="chart-price"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <h3>Rooms per home</h3>
+      <div class="chart-card profile">
+        <h3>Rooms per Home</h3>
         <div class="chart-wrap"><canvas id="chart-rooms"></canvas></div>
       </div>
-      <div class="chart-card">
-        <h3>Feature interest</h3>
-        <div class="chart-wrap"><canvas id="chart-features"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <h3>CTA performance</h3>
-        <div class="chart-wrap"><canvas id="chart-cta"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <h3>Traffic sources</h3>
-        <div class="chart-wrap"><canvas id="chart-referrers"></canvas></div>
+      <div class="chart-card profile">
+        <h3>Price Interest</h3>
+        <div class="chart-wrap"><canvas id="chart-price"></canvas></div>
       </div>
     </div>
 
-    <!-- Signups table -->
+    <!-- Row 3: Feature & Engagement -->
+    <div class="section-header"><h2>Features &amp; Engagement</h2></div>
+    <div class="charts-row charts-row-3">
+      <div class="chart-card engagement">
+        <h3>Feature Interest</h3>
+        <div class="chart-wrap-tall"><canvas id="chart-features"></canvas></div>
+      </div>
+      <div class="chart-card engagement">
+        <h3>CTA Performance</h3>
+        <div class="chart-wrap"><canvas id="chart-cta"></canvas></div>
+      </div>
+      <div class="chart-card engagement">
+        <h3>Traffic Sources</h3>
+        <div class="chart-wrap-tall"><canvas id="chart-referrers"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Row 4: Price Signals -->
+    <div class="section-header"><h2>Price Signals</h2></div>
+    <div class="charts-row charts-row-2">
+      <div class="chart-card price-s">
+        <h3>Price Hover vs Click vs Apply</h3>
+        <div class="chart-wrap"><canvas id="chart-price-signals"></canvas></div>
+      </div>
+      <div class="chart-card price-s">
+        <h3>Page Views Over Time</h3>
+        <div class="chart-wrap"><canvas id="chart-pageviews"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Applications table -->
     <div class="table-section">
       <div class="table-header">
-        <h3>Waitlist Signups</h3>
-        <button class="btn-export" id="btn-export">⬇ Export CSV</button>
+        <h3>Waitlist Applications</h3>
+        <div class="table-controls">
+          <input type="search" id="table-search" placeholder="Search by email…" class="table-search">
+          <select id="filter-concern" class="table-filter">
+            <option value="">All concerns</option>
+            <option value="kids">Children's health</option>
+            <option value="sleep">Sleep quality</option>
+            <option value="asthma">Asthma / Allergies</option>
+            <option value="wellness">General wellness</option>
+            <option value="wfh">Remote work</option>
+            <option value="other">Other</option>
+          </select>
+          <select id="filter-rooms" class="table-filter">
+            <option value="">All room counts</option>
+            <option value="1">1 room</option>
+            <option value="2-3">2–3 rooms</option>
+            <option value="4-5">4–5 rooms</option>
+            <option value="6+">6+ rooms</option>
+          </select>
+          <span class="table-count" id="table-count"></span>
+          <button class="btn-export" id="btn-export">⬇ Export CSV</button>
+        </div>
       </div>
       <div class="table-wrap">
         <table>
@@ -212,14 +342,15 @@
               <th>Date</th>
               <th>Email</th>
               <th>Rooms</th>
-              <th>Price point</th>
-              <th>Main concern</th>
+              <th>Price</th>
+              <th>Concern</th>
               <th>Features</th>
-              <th>Referrer</th>
+              <th>Source</th>
+              <th>Session</th>
             </tr>
           </thead>
           <tbody id="signups-tbody">
-            <tr><td colspan="7" class="loading">Loading…</td></tr>
+            <tr><td colspan="8" class="loading">Loading…</td></tr>
           </tbody>
         </table>
       </div>
@@ -278,22 +409,52 @@
 
   document.getElementById('btn-refresh').addEventListener('click', loadData);
 
+  // ── Chart.js global defaults ──────────────────────────
+  Chart.defaults.color = '#64748b';
+  Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+  Chart.defaults.font.family = 'Inter, system-ui, sans-serif';
+  Chart.defaults.font.size = 12;
+
+  // ── Helper maps ───────────────────────────────────────
+  const CONCERN_LABELS = {
+    kids: "Children's health", sleep: 'Sleep quality', asthma: 'Asthma / Allergies',
+    wellness: 'General wellness', wfh: 'Remote work', other: 'Other'
+  };
+  const FEATURE_LABELS = {
+    'multi-room': 'Multi-room view', alerts: 'Smart alerts', reports: 'Weekly reports',
+    advice: 'Actionable advice', sensors: 'Sensor accuracy', app: 'Mobile app'
+  };
+  const PRICE_LABELS = {
+    '49': '£49/room', '59': '£59/room', '69': '£69/room', '79': '£79/room', '80+': '£80+/room'
+  };
+  const FEATURE_COLORS = {
+    'multi-room': '#3b82f6', alerts: '#f59e0b', reports: '#10b981',
+    advice: '#8b5cf6', sensors: '#06b6d4', app: '#64748b'
+  };
+  const COLORS = ['#3b82f6','#8b5cf6','#10b981','#f59e0b','#ef4444','#06b6d4','#ec4899','#84cc16'];
+
   // ── Charts store ──────────────────────────────────────
   const charts = {};
   function makeChart(id, type, data, options = {}) {
     if (charts[id]) charts[id].destroy();
-    const defaults = {
+    const scaleDefaults = {
+      x: { ticks: { color: '#64748b' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+      y: { ticks: { color: '#64748b' }, grid: { color: 'rgba(255,255,255,0.05)' }, beginAtZero: true }
+    };
+    const base = {
       plugins: { legend: { labels: { color: '#94a3b8', font: { size: 12 } } } },
-      scales: type !== 'pie' && type !== 'doughnut' ? {
-        x: { ticks: { color: '#64748b' }, grid: { color: 'rgba(255,255,255,0.05)' } },
-        y: { ticks: { color: '#64748b' }, grid: { color: 'rgba(255,255,255,0.05)' }, beginAtZero: true }
-      } : {},
+      scales: (type !== 'pie' && type !== 'doughnut') ? scaleDefaults : {},
       maintainAspectRatio: false
     };
-    charts[id] = new Chart(document.getElementById(id), { type, data, options: { ...defaults, ...options } });
+    charts[id] = new Chart(document.getElementById(id), {
+      type, data,
+      options: { ...base, ...options }
+    });
   }
 
-  const COLORS = ['#3b82f6','#8b5cf6','#10b981','#f59e0b','#ef4444','#06b6d4','#ec4899','#84cc16'];
+  // ── State ─────────────────────────────────────────────
+  window.allSignups = [];
+  window.allEvents  = [];
 
   // ── Data loading ──────────────────────────────────────
   async function loadData() {
@@ -305,96 +466,291 @@
     const signups = signupsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
     const events  = eventsSnap.docs.map(d => d.data());
 
+    window.allSignups = signups;
+    window.allEvents  = events;
+
     renderStats(signups, events);
-    renderSignupsOverTime(signups);
-    renderPriceChart(signups);
+    renderInsights(signups, events);
+    renderCumulativeChart(signups);
+    renderDailyChart(signups);
+    renderFunnelChart(signups, events);
+    renderConcernChart(signups);
     renderRoomsChart(signups);
+    renderPriceChart(signups);
     renderFeaturesChart(signups);
     renderCtaChart(events);
     renderReferrersChart(events);
+    renderPriceSignalsChart(signups, events);
+    renderPageViewsChart(events);
     renderTable(signups);
+
+    document.getElementById('last-updated').textContent =
+      'Updated ' + new Date().toLocaleTimeString('en-GB');
   }
 
   // ── Stats ─────────────────────────────────────────────
   function renderStats(signups, events) {
-    const views     = events.filter(e => e.type === 'page_view').length;
-    const sessions  = new Set(events.map(e => e.sessionId).filter(Boolean)).size;
-    const ctaClicks = events.filter(e => ['hero-cta','nav-cta','mid-cta','waitlist_signup'].includes(e.type)).length;
-    const rate      = views > 0 ? ((signups.length / views) * 100).toFixed(1) + '%' : '—';
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const weekAgo  = new Date(Date.now() - 7 * 86400000);
 
-    document.getElementById('stat-signups').textContent    = signups.length;
-    document.getElementById('stat-views').textContent      = views;
-    document.getElementById('stat-sessions').textContent   = sessions;
-    document.getElementById('stat-conversion').textContent = rate;
-    document.getElementById('stat-cta').textContent        = ctaClicks;
+    const todayCount = signups.filter(s => {
+      const d = s.timestamp?.toDate ? s.timestamp.toDate() : new Date(s.timestamp);
+      return d.toISOString().slice(0, 10) === todayStr;
+    }).length;
+
+    const weekCount = signups.filter(s => {
+      const d = s.timestamp?.toDate ? s.timestamp.toDate() : new Date(s.timestamp);
+      return d >= weekAgo;
+    }).length;
+
+    const roomMap = { '1': 1, '2-3': 2.5, '4-5': 4.5, '6+': 6.5 };
+    const roomVals = signups.map(s => roomMap[s.rooms]).filter(v => v !== undefined);
+    const avgRooms = roomVals.length
+      ? (roomVals.reduce((a, b) => a + b, 0) / roomVals.length).toFixed(1)
+      : '—';
+
+    const concernCounts = {};
+    signups.forEach(s => { if (s.concern) concernCounts[s.concern] = (concernCounts[s.concern] || 0) + 1; });
+    const topConcern = Object.entries(concernCounts).sort((a, b) => b[1] - a[1])[0];
+
+    const featCounts = {};
+    signups.forEach(s => { (s.features || []).forEach(f => { featCounts[f] = (featCounts[f] || 0) + 1; }); });
+    const topFeat = Object.entries(featCounts).sort((a, b) => b[1] - a[1])[0];
+
+    const priceCounts = {};
+    signups.forEach(s => {
+      if (s.pricePoint) priceCounts[String(s.pricePoint)] = (priceCounts[String(s.pricePoint)] || 0) + 1;
+    });
+    const topPrice = Object.entries(priceCounts).sort((a, b) => b[1] - a[1])[0];
+
+    const sessions = new Set(events.map(e => e.sessionId).filter(Boolean)).size;
+    const conversion = sessions > 0 ? ((signups.length / sessions) * 100).toFixed(1) + '%' : '—';
+
+    document.getElementById('stat-total').textContent      = signups.length;
+    document.getElementById('stat-today').textContent      = todayCount;
+    document.getElementById('stat-week').textContent       = weekCount;
+    document.getElementById('stat-avg-rooms').textContent  = avgRooms;
+    document.getElementById('stat-top-concern').textContent =
+      topConcern ? (CONCERN_LABELS[topConcern[0]] || topConcern[0]) : '—';
+    document.getElementById('stat-top-feature').textContent =
+      topFeat ? (FEATURE_LABELS[topFeat[0]] || topFeat[0]) : '—';
+    document.getElementById('stat-top-price').textContent =
+      topPrice ? (PRICE_LABELS[topPrice[0]] || ('£' + topPrice[0])) : '—';
+    document.getElementById('stat-conversion').textContent = conversion;
   }
 
-  // ── Signups over time (daily) ─────────────────────────
-  function renderSignupsOverTime(signups) {
-    const counts = {};
+  // ── Insights strip ────────────────────────────────────
+  function renderInsights(signups, events) {
+    const pills = [];
+
+    if (signups.length) {
+      const multiRoom = signups.filter(s => ['2-3','4-5','6+'].includes(s.rooms)).length;
+      pills.push('🏠 ' + Math.round((multiRoom / signups.length) * 100) + '% want 3+ rooms');
+
+      const concernCounts = {};
+      signups.forEach(s => { if (s.concern) concernCounts[s.concern] = (concernCounts[s.concern] || 0) + 1; });
+      const topConcern = Object.entries(concernCounts).sort((a, b) => b[1] - a[1])[0];
+      if (topConcern)
+        pills.push('💡 Most common concern: ' + (CONCERN_LABELS[topConcern[0]] || topConcern[0]));
+
+      const featCounts = {};
+      signups.forEach(s => { (s.features || []).forEach(f => { featCounts[f] = (featCounts[f] || 0) + 1; }); });
+      const topFeat = Object.entries(featCounts).sort((a, b) => b[1] - a[1])[0];
+      if (topFeat)
+        pills.push('⭐ Top feature: ' + (FEATURE_LABELS[topFeat[0]] || topFeat[0]) + ' (' + topFeat[1] + ' applicants)');
+
+      const autoCount = signups.filter(s =>
+        (s.features || []).some(f => ['alerts','reports','advice'].includes(f))
+      ).length;
+      pills.push('🤖 ' + Math.round((autoCount / signups.length) * 100) + '% want smart home / automation features');
+
+      const dayCounts = {};
+      signups.forEach(s => {
+        const d = s.timestamp?.toDate ? s.timestamp.toDate() : new Date(s.timestamp);
+        const key = d.toISOString().slice(0, 10);
+        dayCounts[key] = (dayCounts[key] || 0) + 1;
+      });
+      const peakDay = Object.entries(dayCounts).sort((a, b) => b[1] - a[1])[0];
+      if (peakDay) {
+        const dateStr = new Date(peakDay[0]).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+        pills.push('📅 Peak signup day: ' + dateStr + ' (' + peakDay[1] + ' signups)');
+      }
+    }
+
+    document.getElementById('insights-strip').innerHTML =
+      pills.map(p => '<span class="insight-pill">' + escHtml(p) + '</span>').join('');
+  }
+
+  // ── Cumulative growth ─────────────────────────────────
+  function renderCumulativeChart(signups) {
+    const dayCounts = {};
     signups.forEach(s => {
       const d = s.timestamp?.toDate ? s.timestamp.toDate() : new Date(s.timestamp);
       const key = d.toISOString().slice(0, 10);
-      counts[key] = (counts[key] || 0) + 1;
+      dayCounts[key] = (dayCounts[key] || 0) + 1;
     });
-    const sorted = Object.keys(counts).sort();
-    makeChart('chart-signups-over-time', 'bar', {
+    const sorted = Object.keys(dayCounts).sort();
+    let running = 0;
+    const cumData = sorted.map(k => { running += dayCounts[k]; return running; });
+    makeChart('chart-cumulative', 'line', {
       labels: sorted,
-      datasets: [{ label: 'Signups', data: sorted.map(k => counts[k]), backgroundColor: '#3b82f680', borderColor: '#3b82f6', borderWidth: 1 }]
-    });
+      datasets: [{
+        label: 'Total applications',
+        data: cumData,
+        borderColor: '#3b82f6',
+        backgroundColor: 'rgba(59,130,246,0.15)',
+        fill: true,
+        tension: 0.35,
+        pointRadius: 3,
+        pointBackgroundColor: '#3b82f6'
+      }]
+    }, { plugins: { legend: { display: false } } });
   }
 
-  // ── Price distribution ────────────────────────────────
-  function renderPriceChart(signups) {
-    const counts = {};
-    signups.forEach(s => { const p = s.pricePoint || 'Not specified'; counts[p] = (counts[p] || 0) + 1; });
-    const labels = Object.keys(counts);
-    makeChart('chart-price', 'doughnut', {
-      labels,
-      datasets: [{ data: labels.map(l => counts[l]), backgroundColor: COLORS }]
-    });
-  }
-
-  // ── Rooms distribution ────────────────────────────────
-  function renderRoomsChart(signups) {
-    const counts = {};
-    signups.forEach(s => { const r = s.rooms || 'Not specified'; counts[r] = (counts[r] || 0) + 1; });
-    const labels = Object.keys(counts).sort();
-    makeChart('chart-rooms', 'bar', {
-      labels,
-      datasets: [{ label: 'Signups', data: labels.map(l => counts[l]), backgroundColor: '#8b5cf680', borderColor: '#8b5cf6', borderWidth: 1 }]
-    });
-  }
-
-  // ── Feature interest ──────────────────────────────────
-  function renderFeaturesChart(signups) {
-    const counts = {};
+  // ── Daily applications ────────────────────────────────
+  function renderDailyChart(signups) {
+    const dayCounts = {};
     signups.forEach(s => {
-      (s.features || []).forEach(f => { counts[f] = (counts[f] || 0) + 1; });
+      const d = s.timestamp?.toDate ? s.timestamp.toDate() : new Date(s.timestamp);
+      const key = d.toISOString().slice(0, 10);
+      dayCounts[key] = (dayCounts[key] || 0) + 1;
     });
-    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-    makeChart('chart-features', 'bar', {
-      labels: sorted.map(([k]) => k),
-      datasets: [{ label: 'Interest', data: sorted.map(([, v]) => v), backgroundColor: '#10b98180', borderColor: '#10b981', borderWidth: 1 }]
+    const sorted = Object.keys(dayCounts).sort();
+    makeChart('chart-daily', 'bar', {
+      labels: sorted,
+      datasets: [{
+        label: 'Applications',
+        data: sorted.map(k => dayCounts[k]),
+        backgroundColor: 'rgba(59,130,246,0.6)',
+        borderColor: '#3b82f6',
+        borderWidth: 1,
+        borderRadius: 4
+      }]
+    }, { plugins: { legend: { display: false } } });
+  }
+
+  // ── Conversion funnel ─────────────────────────────────
+  function renderFunnelChart(signups, events) {
+    const pageViews = events.filter(e => e.type === 'page_view').length;
+    const ctaClicks = events.filter(e => [
+      'hero-cta','nav-cta','mid-cta','solution-cta',
+      'price-cta-49','price-cta-59','price-cta-69','price-cta-79','price_click'
+    ].includes(e.type)).length;
+    makeChart('chart-funnel', 'bar', {
+      labels: ['Page Views', 'CTA Clicks', 'Applications'],
+      datasets: [{
+        label: 'Count',
+        data: [pageViews, ctaClicks, signups.length],
+        backgroundColor: [
+          'rgba(59,130,246,0.7)', 'rgba(139,92,246,0.7)', 'rgba(16,185,129,0.7)'
+        ],
+        borderColor: ['#3b82f6','#8b5cf6','#10b981'],
+        borderWidth: 1,
+        borderRadius: 4
+      }]
     }, {
       indexAxis: 'y',
       plugins: { legend: { display: false } }
     });
   }
 
-  // ── CTA clicks ────────────────────────────────────────
-  function renderCtaChart(events) {
-    const ctaTypes = ['hero-cta', 'nav-cta', 'mid-cta'];
+  // ── Concern breakdown ─────────────────────────────────
+  function renderConcernChart(signups) {
     const counts = {};
-    events.filter(e => ctaTypes.includes(e.type)).forEach(e => { counts[e.type] = (counts[e.type] || 0) + 1; });
-    const labels = Object.keys(counts);
-    makeChart('chart-cta', 'doughnut', {
-      labels,
-      datasets: [{ data: labels.map(l => counts[l]), backgroundColor: COLORS }]
+    signups.forEach(s => { if (s.concern) counts[s.concern] = (counts[s.concern] || 0) + 1; });
+    const keys = Object.keys(counts);
+    makeChart('chart-concern', 'doughnut', {
+      labels: keys.map(k => CONCERN_LABELS[k] || k),
+      datasets: [{
+        data: keys.map(k => counts[k]),
+        backgroundColor: COLORS,
+        borderWidth: 2,
+        borderColor: '#0f1a2e'
+      }]
     });
   }
 
-  // ── Referrers ─────────────────────────────────────────
+  // ── Rooms per home ────────────────────────────────────
+  function renderRoomsChart(signups) {
+    const order = ['1', '2-3', '4-5', '6+'];
+    const counts = {};
+    signups.forEach(s => { if (s.rooms) counts[s.rooms] = (counts[s.rooms] || 0) + 1; });
+    const labels = order.filter(k => counts[k]);
+    makeChart('chart-rooms', 'bar', {
+      labels,
+      datasets: [{
+        label: 'Applications',
+        data: labels.map(l => counts[l] || 0),
+        backgroundColor: 'rgba(139,92,246,0.6)',
+        borderColor: '#8b5cf6',
+        borderWidth: 1,
+        borderRadius: 4
+      }]
+    }, { plugins: { legend: { display: false } } });
+  }
+
+  // ── Price interest ────────────────────────────────────
+  function renderPriceChart(signups) {
+    const order = ['49','59','69','79','80+'];
+    const counts = {};
+    signups.forEach(s => {
+      if (s.pricePoint) counts[String(s.pricePoint)] = (counts[String(s.pricePoint)] || 0) + 1;
+    });
+    const labels = order.filter(k => counts[k]);
+    makeChart('chart-price', 'doughnut', {
+      labels: labels.map(k => PRICE_LABELS[k] || ('£' + k)),
+      datasets: [{
+        data: labels.map(k => counts[k]),
+        backgroundColor: COLORS,
+        borderWidth: 2,
+        borderColor: '#0f1a2e'
+      }]
+    });
+  }
+
+  // ── Feature interest ──────────────────────────────────
+  function renderFeaturesChart(signups) {
+    const counts = {};
+    signups.forEach(s => { (s.features || []).forEach(f => { counts[f] = (counts[f] || 0) + 1; }); });
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    makeChart('chart-features', 'bar', {
+      labels: sorted.map(([k]) => FEATURE_LABELS[k] || k),
+      datasets: [{
+        label: 'Interest',
+        data: sorted.map(([, v]) => v),
+        backgroundColor: sorted.map(([k]) => (FEATURE_COLORS[k] || '#3b82f6') + 'aa'),
+        borderColor:      sorted.map(([k]) => FEATURE_COLORS[k]  || '#3b82f6'),
+        borderWidth: 1,
+        borderRadius: 4
+      }]
+    }, {
+      indexAxis: 'y',
+      plugins: { legend: { display: false } }
+    });
+  }
+
+  // ── CTA performance ───────────────────────────────────
+  function renderCtaChart(events) {
+    const ctaMap = {};
+    const PRICE_TYPES = new Set(['price-cta-49','price-cta-59','price-cta-69','price-cta-79','price_click']);
+    const ALLOWED = new Set(['hero-cta','nav-cta','mid-cta','solution-cta','feature_click','Price CTAs']);
+    events.forEach(e => {
+      let type = PRICE_TYPES.has(e.type) ? 'Price CTAs' : e.type;
+      if (ALLOWED.has(type)) ctaMap[type] = (ctaMap[type] || 0) + 1;
+    });
+    const labels = Object.keys(ctaMap);
+    makeChart('chart-cta', 'doughnut', {
+      labels,
+      datasets: [{
+        data: labels.map(l => ctaMap[l]),
+        backgroundColor: COLORS,
+        borderWidth: 2,
+        borderColor: '#0f1a2e'
+      }]
+    });
+  }
+
+  // ── Traffic sources ────────────────────────────────────
   function renderReferrersChart(events) {
     const counts = {};
     events.filter(e => e.type === 'page_view').forEach(e => {
@@ -405,49 +761,146 @@
     const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 8);
     makeChart('chart-referrers', 'bar', {
       labels: sorted.map(([k]) => k),
-      datasets: [{ label: 'Views', data: sorted.map(([, v]) => v), backgroundColor: '#f59e0b80', borderColor: '#f59e0b', borderWidth: 1 }]
+      datasets: [{
+        label: 'Views',
+        data: sorted.map(([, v]) => v),
+        backgroundColor: 'rgba(245,158,11,0.6)',
+        borderColor: '#f59e0b',
+        borderWidth: 1,
+        borderRadius: 4
+      }]
     }, {
       indexAxis: 'y',
       plugins: { legend: { display: false } }
     });
   }
 
+  // ── Price signals (hover vs click vs apply) ───────────
+  function renderPriceSignalsChart(signups, events) {
+    const tiers = ['49','59','69','79'];
+    const hovers  = tiers.map(t =>
+      events.filter(e => e.type === 'price_hover' && String(e.value) === t).length
+    );
+    const clicks  = tiers.map(t =>
+      events.filter(e =>
+        (e.type === 'price_click' || e.type === ('price-cta-' + t)) &&
+        (String(e.value) === t || e.type === ('price-cta-' + t))
+      ).length
+    );
+    const applies = tiers.map(t => signups.filter(s => String(s.pricePoint) === t).length);
+    makeChart('chart-price-signals', 'bar', {
+      labels: tiers.map(t => '£' + t + '/room'),
+      datasets: [
+        { label: 'Hovers',       data: hovers,  backgroundColor: 'rgba(100,116,139,0.6)', borderColor: '#64748b', borderWidth: 1, borderRadius: 3 },
+        { label: 'Clicks',       data: clicks,  backgroundColor: 'rgba(59,130,246,0.6)',  borderColor: '#3b82f6', borderWidth: 1, borderRadius: 3 },
+        { label: 'Applications', data: applies, backgroundColor: 'rgba(16,185,129,0.6)',  borderColor: '#10b981', borderWidth: 1, borderRadius: 3 }
+      ]
+    });
+  }
+
+  // ── Page views over time ──────────────────────────────
+  function renderPageViewsChart(events) {
+    const dayCounts = {};
+    events.filter(e => e.type === 'page_view').forEach(e => {
+      const d = e.timestamp?.toDate ? e.timestamp.toDate() : new Date(e.timestamp);
+      if (isNaN(d)) return;
+      const key = d.toISOString().slice(0, 10);
+      dayCounts[key] = (dayCounts[key] || 0) + 1;
+    });
+    const sorted = Object.keys(dayCounts).sort();
+    makeChart('chart-pageviews', 'line', {
+      labels: sorted,
+      datasets: [{
+        label: 'Page views',
+        data: sorted.map(k => dayCounts[k]),
+        borderColor: '#06b6d4',
+        backgroundColor: 'rgba(6,182,212,0.12)',
+        fill: true,
+        tension: 0.35,
+        pointRadius: 3,
+        pointBackgroundColor: '#06b6d4'
+      }]
+    }, { plugins: { legend: { display: false } } });
+  }
+
   // ── Table ─────────────────────────────────────────────
   function renderTable(signups) {
     const tbody = document.getElementById('signups-tbody');
+    document.getElementById('table-count').textContent =
+      signups.length + ' application' + (signups.length !== 1 ? 's' : '');
+
     if (!signups.length) {
-      tbody.innerHTML = '<tr><td colspan="7" class="loading">No signups yet.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="8" class="loading">No applications match your filters.</td></tr>';
       return;
     }
+
     tbody.innerHTML = signups.map(s => {
       const d = s.timestamp?.toDate ? s.timestamp.toDate() : new Date(s.timestamp);
       const date = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-      const featureTags = (s.features || []).map(f => `<span class="tag">${escHtml(f)}</span>`).join('');
+
+      const hasHA = (s.features || []).some(f => ['alerts','reports'].includes(f));
+      const emailCell = escHtml(s.email || '—') + (hasHA ? '<span class="ha-badge">HA</span>' : '');
+
+      const featureTags = (s.features || []).map(f => {
+        const slug = f.replace(/[^a-z0-9]/g, '-');
+        return '<span class="tag tag-' + escHtml(slug) + '">' + escHtml(FEATURE_LABELS[f] || f) + '</span>';
+      }).join('');
+
+      const priceLabel = PRICE_LABELS[String(s.pricePoint)] || (s.pricePoint ? '£' + s.pricePoint : '—');
+      const concernLabel = CONCERN_LABELS[s.concern] || s.concern || '—';
+
       let ref = s.referrer || '—';
-      try { ref = new URL(ref).hostname; } catch {}
-      return `
-        <tr>
-          <td style="white-space:nowrap">${date}</td>
-          <td>${escHtml(s.email || '—')}</td>
-          <td>${escHtml(s.rooms || '—')}</td>
-          <td>${escHtml(s.pricePoint || '—')}</td>
-          <td>${escHtml(s.concern || '—')}</td>
-          <td>${featureTags || '—'}</td>
-          <td style="font-size:.8rem;color:#64748b">${escHtml(ref)}</td>
-        </tr>`;
+      try { ref = new URL(ref).hostname || 'Direct'; } catch {}
+
+      const session = s.sessionId ? escHtml(s.sessionId.slice(0, 8)) + '…' : '—';
+
+      return '<tr>'
+        + '<td style="white-space:nowrap">' + escHtml(date) + '</td>'
+        + '<td>' + emailCell + '</td>'
+        + '<td>' + escHtml(s.rooms || '—') + '</td>'
+        + '<td>' + escHtml(priceLabel) + '</td>'
+        + '<td>' + escHtml(concernLabel) + '</td>'
+        + '<td>' + (featureTags || '—') + '</td>'
+        + '<td style="font-size:.8rem;color:#64748b">' + escHtml(ref) + '</td>'
+        + '<td style="font-size:.75rem;color:#64748b;white-space:nowrap">' + session + '</td>'
+        + '</tr>';
     }).join('');
   }
 
+  // ── Filter + re-render table ──────────────────────────
+  function filterAndRenderTable() {
+    const search  = document.getElementById('table-search').value.toLowerCase().trim();
+    const concern = document.getElementById('filter-concern').value;
+    const rooms   = document.getElementById('filter-rooms').value;
+
+    let filtered = window.allSignups;
+    if (search)  filtered = filtered.filter(s => (s.email || '').toLowerCase().includes(search));
+    if (concern) filtered = filtered.filter(s => s.concern === concern);
+    if (rooms)   filtered = filtered.filter(s => s.rooms === rooms);
+
+    renderTable(filtered);
+  }
+
+  document.getElementById('table-search').addEventListener('input', filterAndRenderTable);
+  document.getElementById('filter-concern').addEventListener('change', filterAndRenderTable);
+  document.getElementById('filter-rooms').addEventListener('change', filterAndRenderTable);
+
+  // ── Utilities ─────────────────────────────────────────
   function escHtml(str) {
-    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    return String(str)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
   // ── CSV Export ────────────────────────────────────────
   document.getElementById('btn-export').addEventListener('click', async () => {
-    const snap = await db.collection('waitlist').orderBy('timestamp', 'desc').get();
-    const rows = [['Date','Email','Rooms','Price Point','Concern','Features','Referrer','Session ID']];
-    snap.docs.forEach(doc => {
-      const s = doc.data();
+    const data = window.allSignups.length
+      ? window.allSignups
+      : (await db.collection('waitlist').orderBy('timestamp', 'desc').get())
+          .docs.map(d => ({ id: d.id, ...d.data() }));
+
+    const rows = [['Date','Email','Rooms','Price Point','Concern','Features','Referrer','Session ID','User Agent']];
+    data.forEach(s => {
       const d = s.timestamp?.toDate ? s.timestamp.toDate() : new Date(s.timestamp);
       rows.push([
         d.toISOString(),
@@ -457,14 +910,15 @@
         s.concern || '',
         (s.features || []).join('; '),
         s.referrer || '',
-        s.sessionId || ''
+        s.sessionId || '',
+        s.userAgent || ''
       ]);
     });
-    const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+    const csv = rows.map(r => r.map(c => '"' + String(c).replace(/"/g,'""') + '"').join(',')).join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = `homeeaze-signups-${new Date().toISOString().slice(0,10)}.csv`;
+    a.download = 'homeeaze-signups-' + new Date().toISOString().slice(0,10) + '.csv';
     a.click();
   });
 </script>
