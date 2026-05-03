@@ -2,18 +2,20 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Waitlist signups: write-only from the client
+    // Waitlist signups: public write, authenticated read
     match /waitlist/{docId} {
       allow create: if request.resource.data.keys().hasAll(['email', 'timestamp'])
                     && request.resource.data.email is string
                     && request.resource.data.email.size() > 3;
-      allow read, update, delete: if false;
+      allow read: if request.auth != null;
+      allow update, delete: if false;
     }
 
-    // Analytics events: write-only from the client
+    // Analytics events: public write, authenticated read
     match /events/{docId} {
       allow create: if request.resource.data.keys().hasAll(['type', 'timestamp']);
-      allow read, update, delete: if false;
+      allow read: if request.auth != null;
+      allow update, delete: if false;
     }
   }
 }

@@ -1593,3 +1593,114 @@ footer {
   .not-for-grid     { grid-template-columns: 1fr; }
   .approach-grid    { grid-template-columns: 1fr; gap: 40px; }
 }
+
+/* ============================================
+   Technical Transparency
+   ============================================ */
+#tech-transparency { background: var(--bg-2); }
+#tech-transparency h2,
+#tech-transparency .section-label { text-align: center; }
+#tech-transparency h2 { max-width: 660px; margin: 0 auto; }
+
+.transparency-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 40px;
+  margin-top: 48px;
+  align-items: start;
+}
+
+.sensor-table-wrap {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.sensor-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .875rem;
+}
+
+.sensor-table thead th {
+  background: var(--bg-card-2);
+  padding: 14px 16px;
+  text-align: left;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.sensor-table tbody tr { border-bottom: 1px solid var(--border); }
+.sensor-table tbody tr:last-child { border-bottom: none; }
+.sensor-table tbody td {
+  padding: 14px 16px;
+  color: var(--text-2);
+  vertical-align: middle;
+}
+.sensor-table tbody td:first-child { color: var(--text); font-weight: 600; }
+
+.sensor-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+.sensor-dot.co2      { background: var(--amber); }
+.sensor-dot.pm25     { background: var(--red); }
+.sensor-dot.voc      { background: var(--purple); }
+.sensor-dot.temp     { background: var(--blue); }
+.sensor-dot.humidity { background: var(--green); }
+
+.sensor-note {
+  font-size: .78rem;
+  color: var(--text-muted);
+  padding: 14px 16px;
+  background: var(--bg-card-2);
+  border-top: 1px solid var(--border);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.transparency-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.transparency-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: border-color .2s;
+}
+.transparency-card:hover { border-color: var(--border-2); }
+.transparency-card-icon { font-size: 1.6rem; margin-bottom: 10px; }
+.transparency-card h3 { color: var(--text); margin-bottom: 6px; }
+.transparency-card p  { font-size: .875rem; line-height: 1.6; }
+
+/* ============================================
+   Comparison Table (competitors)
+   ============================================ */
+#comp-table { text-align: center; }
+#comp-table h2 { max-width: 600px; margin: 0 auto; }
+
+.comp-note {
+  margin-top: 20px;
+  font-size: .85rem;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 960px) {
+  .transparency-grid { grid-template-columns: 1fr; }
+}

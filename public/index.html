@@ -5,9 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HomeEaze Air – Know What You're Breathing, In Every Room</title>
   <meta name="description" content="Multi-room air quality intelligence for UK homes. Smart alerts, weekly reports, and actionable advice – not just a number. Starting from £49/room.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://air.homeeaze.co.uk/">
   <meta property="og:title" content="HomeEaze Air – Know What You're Breathing, In Every Room">
   <meta property="og:description" content="Multi-room air quality intelligence for UK homes. Join the waitlist.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://air.homeeaze.co.uk/">
+  <meta property="og:image" content="https://air.homeeaze.co.uk/apple-touch-icon.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="HomeEaze Air – Know What You're Breathing, In Every Room">
+  <meta name="twitter:description" content="Multi-room air quality intelligence for UK homes. Join the waitlist.">
+  <meta name="twitter:image" content="https://air.homeeaze.co.uk/apple-touch-icon.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -30,6 +38,7 @@
         <li><a href="#how-it-works">How It Works</a></li>
         <li><a href="#features">Features</a></li>
         <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#comp-table">Compare</a></li>
         <li><a href="#comparison">Why Us</a></li>
       </ul>
       <a href="#waitlist" class="btn btn-primary nav-cta" data-track="nav-cta">Join Waitlist</a>
@@ -40,9 +49,9 @@
   <section id="hero">
     <div class="container hero-container">
       <div class="hero-text">
-        <div class="hero-badge">🇬🇧 Built for UK homes</div>
+        <div class="hero-badge">⚙️ Automation-first · 🇬🇧 Built for UK &amp; EU homes</div>
         <h1>Know what you're breathing.<br><span class="gradient-text">In every room.</span></h1>
-        <p class="hero-sub">Multi-room air quality intelligence. Smart alerts, weekly reports, and plain-English advice — not just a number you don't understand.</p>
+        <p class="hero-sub">An automation-first, multi-room air quality system built for UK and EU homes. Native Home Assistant support, local-first architecture, and room-by-room insights — designed around how UK homes actually work.</p>
         <div class="hero-actions">
           <a href="#waitlist" class="btn btn-primary btn-lg" data-track="hero-cta">Join the Waitlist →</a>
           <span class="hero-price">Starting from <strong>£49/room</strong></span>
@@ -467,6 +476,79 @@
     </div>
   </section>
 
+  <!-- Technical Transparency -->
+  <section id="tech-transparency">
+    <div class="container">
+      <div class="section-label">Sensor Transparency</div>
+      <h2>What we're measuring, <span class="gradient-text">and how accurately.</span></h2>
+      <p class="section-sub">We think you deserve to know exactly what's inside. Here's the sensor platform we're designing around, and the accuracy targets we're holding ourselves to.</p>
+      <div class="transparency-grid">
+        <div class="sensor-table-wrap reveal">
+          <table class="sensor-table">
+            <thead>
+              <tr>
+                <th>Pollutant</th>
+                <th>Sensor class</th>
+                <th>Accuracy target</th>
+                <th>Range</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="sensor-dot co2"></span>CO₂</td>
+                <td>NDIR (e.g. Sensirion SCD40-class)</td>
+                <td>±50 ppm + 3% of reading</td>
+                <td>400–5,000 ppm</td>
+              </tr>
+              <tr>
+                <td><span class="sensor-dot pm25"></span>PM2.5</td>
+                <td>Laser particle counter</td>
+                <td>±10 μg/m³ &lt; 100 μg/m³</td>
+                <td>0–500 μg/m³</td>
+              </tr>
+              <tr>
+                <td><span class="sensor-dot voc"></span>VOC</td>
+                <td>MOX with on-chip compensation</td>
+                <td>Index 0–500 (relative)</td>
+                <td>0–1,000 ppb equiv.</td>
+              </tr>
+              <tr>
+                <td><span class="sensor-dot temp"></span>Temperature</td>
+                <td>Integrated MEMS</td>
+                <td>±0.3°C</td>
+                <td>-10–60°C</td>
+              </tr>
+              <tr>
+                <td><span class="sensor-dot humidity"></span>Humidity</td>
+                <td>Capacitive polymer</td>
+                <td>±2% RH</td>
+                <td>0–95% RH</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="sensor-note">Sensor class and specs represent design targets for prototype units. Final production hardware will be confirmed and published before any pilot ships.</p>
+        </div>
+        <div class="transparency-cards">
+          <div class="transparency-card reveal">
+            <div class="transparency-card-icon">🔧</div>
+            <h3>Factory + field calibration</h3>
+            <p>Sensors are factory-calibrated before shipping. Ongoing drift compensation is handled via firmware — no user action, no subscription required.</p>
+          </div>
+          <div class="transparency-card reveal">
+            <div class="transparency-card-icon">⏱️</div>
+            <h3>30-second measurement cycle</h3>
+            <p>Readings are taken every 30 seconds. Stored locally at full resolution. The app shows rolling averages to reduce noise without hiding real events.</p>
+          </div>
+          <div class="transparency-card reveal">
+            <div class="transparency-card-icon">📂</div>
+            <h3>Raw data always accessible</h3>
+            <p>You can export your raw timestamped readings at any time via the API or CSV export. We don't round, smooth, or hide inconvenient data from you.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Mid-page CTA -->
   <section id="mid-cta">
     <div class="container">
@@ -534,6 +616,104 @@
           <a href="#waitlist" class="btn btn-outline btn-full" data-track="price-cta-79">I'm interested →</a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Comparison Table -->
+  <section id="comp-table">
+    <div class="container">
+      <div class="section-label">How We Compare</div>
+      <h2>Honest comparison <span class="gradient-text">with the alternatives.</span></h2>
+      <p class="section-sub">There are good options out there. Here's how they stack up against what we're building.</p>
+      <div class="table-scroll reveal">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="them">Govee<br><small>£20–40</small></th>
+              <th class="them">Ikea VINDSTYRKA<br><small>~£35</small></th>
+              <th class="them">Qingping<br><small>£45–80</small></th>
+              <th class="them">AirGradient<br><small>£60–100</small></th>
+              <th class="us">HomeEaze Air<br><small>£49–79/room</small></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Multi-room view</td>
+              <td class="no">✗</td>
+              <td class="no">✗</td>
+              <td class="no">✗</td>
+              <td class="no">✗</td>
+              <td class="yes">✓</td>
+            </tr>
+            <tr>
+              <td>Home Assistant / MQTT</td>
+              <td class="partial">Limited</td>
+              <td class="no">✗</td>
+              <td class="partial">Partial</td>
+              <td class="yes">✓ Native</td>
+              <td class="yes">✓ Native</td>
+            </tr>
+            <tr>
+              <td>Local-first, no cloud required</td>
+              <td class="no">✗</td>
+              <td class="no">✗</td>
+              <td class="no">✗</td>
+              <td class="yes">✓</td>
+              <td class="yes">✓</td>
+            </tr>
+            <tr>
+              <td>Thread / Matter roadmap</td>
+              <td class="no">✗</td>
+              <td class="no">✗</td>
+              <td class="no">✗</td>
+              <td class="partial">Planned</td>
+              <td class="partial">Planned</td>
+            </tr>
+            <tr>
+              <td>UK/EU home-focused</td>
+              <td class="no">✗</td>
+              <td class="no">✗</td>
+              <td class="no">✗</td>
+              <td class="no">✗</td>
+              <td class="yes">✓</td>
+            </tr>
+            <tr>
+              <td>Actionable plain-English advice</td>
+              <td class="no">✗</td>
+              <td class="no">✗</td>
+              <td class="no">✗</td>
+              <td class="no">✗</td>
+              <td class="yes">✓</td>
+            </tr>
+            <tr>
+              <td>PM2.5 + CO₂ + VOC (all 3)</td>
+              <td class="partial">Some</td>
+              <td class="partial">PM2.5 only</td>
+              <td class="partial">Varies</td>
+              <td class="yes">✓</td>
+              <td class="yes">✓ All 5</td>
+            </tr>
+            <tr>
+              <td>Ready-to-use (no DIY assembly)</td>
+              <td class="yes">✓</td>
+              <td class="yes">✓</td>
+              <td class="yes">✓</td>
+              <td class="partial">Kit build</td>
+              <td class="yes">✓</td>
+            </tr>
+            <tr>
+              <td>No subscription for core features</td>
+              <td class="partial">Mostly</td>
+              <td class="yes">✓</td>
+              <td class="partial">Some</td>
+              <td class="yes">✓</td>
+              <td class="yes">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="comp-note">AirGradient is excellent DIY hardware — we respect it. If you want to build your own system, go for it. We're building a complete, ready-to-run product for people who'd rather not.</p>
     </div>
   </section>
 

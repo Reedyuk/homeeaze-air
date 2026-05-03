@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /luna/
+
+Sitemap: https://air.homeeaze.co.uk/sitemap.xml
