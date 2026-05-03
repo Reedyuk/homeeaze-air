@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Automate Ventilation Using Home Assistant and CO₂ Sensors – HomeEaze Air</title>
+  <meta name="description" content="CO₂ is one of the most actionable indoor air signals. A practical guide to building room-specific ventilation automations in Home Assistant.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://air.homeeaze.co.uk/articles/automate-ventilation-home-assistant.html">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/docs.css">
+  <link rel="stylesheet" href="/css/articles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-mark">✦</span>
+        <span class="logo-text">HomeEaze Air</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/#how-it-works">How It Works</a></li>
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/articles/" class="nav-link-active">Articles</a></li>
+        <li><a href="/compare/">Compare</a></li>
+        <li><a href="/docs.html">Docs</a></li>
+      </ul>
+      <a href="/#waitlist" class="btn btn-primary nav-cta">Join Waitlist</a>
+    </div>
+  </nav>
+
+  <!-- Article -->
+  <main class="article-page">
+    <div class="container">
+
+      <nav class="article-breadcrumb">
+        <a href="/articles/">Articles</a>
+        <span class="article-breadcrumb-sep">›</span>
+        <span>Home Assistant</span>
+      </nav>
+
+      <span class="article-category">⚙️ Home Assistant</span>
+      <h1>How to Automate Ventilation Using Home Assistant and CO₂ Sensors</h1>
+
+      <div class="article-meta">
+        <span class="article-reading-time">⏱ 7 min read</span>
+        <span class="article-date">June 2025</span>
+      </div>
+
+      <article class="article-body">
+
+        <p>CO₂ is one of the most practical indoor air signals to automate. It responds directly to occupancy, it rises clearly in under-ventilated rooms and it maps neatly to actions people already understand: open a window, use a trickle vent, run MVHR boost or simply stop heating a sealed room without fresh air.</p>
+
+        <h2>Why CO₂ is a strong automation signal</h2>
+
+        <p>CO₂ is not the whole story of indoor air, but it is an excellent ventilation proxy. If CO₂ is climbing, the room is not exchanging enough air for the number of people in it. That makes it ideal for threshold-based automations because the action is obvious and explainable.</p>
+
+        <p>A simple ladder works well:</p>
+        <ul>
+          <li><strong>Below 800 ppm</strong>: well ventilated</li>
+          <li><strong>800–1,000 ppm</strong>: keep an eye on it</li>
+          <li><strong>Above 1,000 ppm</strong>: prompt for ventilation</li>
+          <li><strong>Above 1,500 ppm</strong>: urgent action</li>
+        </ul>
+
+        <h2>Step 1: Expose HomeEaze Air in Home Assistant</h2>
+
+        <p>HomeEaze can reach Home Assistant through MQTT auto-discovery. Once discovery is enabled, Home Assistant creates entities such as:</p>
+        <ul>
+          <li><code>sensor.homeeaze_bedroom_co2</code></li>
+          <li><code>sensor.homeeaze_bedroom_iaqs</code></li>
+          <li><code>sensor.homeeaze_bedroom_alert_state</code></li>
+        </ul>
+
+        <h2>Step 2: Decide the room-specific threshold</h2>
+
+        <p>A bedroom, living room and office often deserve different thresholds:</p>
+        <ul>
+          <li><strong>Bedroom</strong>: 1,000 ppm warning, 1,500 ppm urgent</li>
+          <li><strong>Office</strong>: lower warnings can help concentration and comfort</li>
+          <li><strong>Living room</strong>: 900 or 1,000 ppm when several people are present</li>
+        </ul>
+
+        <h2>Step 3: Write the Home Assistant automation</h2>
+
+        <p>A basic bedroom ventilation automation:</p>
+
+        <pre><code>- id: homeeaze_bedroom_co2_warning
+  alias: HomeEaze Bedroom CO₂ Ventilation Prompt
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.homeeaze_bedroom_co2
+      above: 1000
+  action:
+    - service: notify.notify
+      data:
+        title: HomeEaze air alert
+        message: Open bedroom window. Bedroom CO₂ is above 1000 ppm.</code></pre>
+
+        <p>Add escalation and recovery:</p>
+
+        <pre><code>- id: homeeaze_bedroom_co2_urgent
+  alias: HomeEaze Bedroom CO₂ Urgent Alert
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.homeeaze_bedroom_co2
+      above: 1500
+  action:
+    - service: notify.notify
+      data:
+        title: HomeEaze urgent CO₂ alert
+        message: Bedroom CO₂ is above 1500 ppm. Ventilate now.
+
+- id: homeeaze_bedroom_co2_recovered
+  alias: HomeEaze Bedroom CO₂ Recovery Message
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.homeeaze_bedroom_co2
+      below: 800
+  action:
+    - service: notify.notify
+      data:
+        title: HomeEaze air update
+        message: Air quality restored. Bedroom CO₂ is back below 800 ppm.</code></pre>
+
+        <p>The recovery message matters. It tells the household that opening the window worked.</p>
+
+        <h2>Step 4: Add MQTT awareness if needed</h2>
+
+        <p>Minimal MQTT sensor example:</p>
+
+        <pre><code>mqtt:
+  sensor:
+    - name: Bedroom CO₂
+      unique_id: homeeaze_bedroom_co2
+      state_topic: homeeaze/heaq-bedroom-01/sensor/co2
+      device_class: carbon_dioxide
+      unit_of_measurement: ppm</code></pre>
+
+        <h2>Step 5: Integrate smart vents or trickle vents carefully</h2>
+
+        <p>The safest first automation is a notification. Once that is working, some homes will want a physical action:</p>
+        <ul>
+          <li>open a motorised trickle vent</li>
+          <li>boost MVHR</li>
+          <li>lower heating demand until fresh air is introduced</li>
+        </ul>
+
+        <p>Keep this conservative — a simple notification is often better than a brittle actuator rule.</p>
+
+        <h2>Final advice</h2>
+
+        <p>Start with one room, one sensor and one clear threshold. Watch the behaviour for a week. Then add escalation, recovery and optional physical controls. In UK and EU homes, where there is no central HVAC smoothing everything out, room-by-room CO₂ automation is often the fastest way to make indoor air monitoring genuinely useful.</p>
+
+      </article>
+
+      <!-- Related Articles -->
+      <aside class="related-articles">
+        <h2>Related Articles</h2>
+        <div class="related-articles-grid">
+          <a href="/articles/how-co2-behaves-overnight-sealed-bedrooms.html" class="related-article-card">
+            <span class="card-emoji">🌙</span>
+            <span class="card-title">How CO₂ Behaves Overnight in Sealed Bedrooms</span>
+            <span class="card-arrow">Read →</span>
+          </a>
+          <a href="/articles/why-uk-eu-homes-need-multi-room-monitoring.html" class="related-article-card">
+            <span class="card-emoji">🏡</span>
+            <span class="card-title">Why UK &amp; EU Homes Need Multi-Room Monitoring</span>
+            <span class="card-arrow">Read →</span>
+          </a>
+          <a href="/articles/multi-room-vs-single-room-monitoring.html" class="related-article-card">
+            <span class="card-emoji">🔄</span>
+            <span class="card-title">Multi-Room vs Single-Room Monitoring</span>
+            <span class="card-arrow">Read →</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo-mark">✦</span>
+        <span class="logo-text">HomeEaze Air</span>
+        <p>Multi-room air quality intelligence for UK homes.</p>
+      </div>
+      <nav class="footer-links">
+        <a href="/#how-it-works">How It Works</a>
+        <a href="/#features">Features</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/articles/">Articles</a>
+        <a href="/compare/">Compare</a>
+        <a href="/docs.html">Docs</a>
+        <a href="/#waitlist">Join Waitlist</a>
+      </nav>
+      <p class="footer-legal">© 2025 HomeEaze. Made with ❤️ in the UK.</p>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+  </script>
+</body>
+</html>

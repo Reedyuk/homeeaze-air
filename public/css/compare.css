@@ -1,0 +1,333 @@
+/* =========================================================
+   Compare CSS — HomeEaze Air
+   ========================================================= */
+
+/* ── Compare Hero ── */
+.compare-hero {
+  padding: 120px 0 64px;
+  text-align: center;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(59,130,246,0.10) 0%, transparent 70%);
+}
+
+.compare-hero h1 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  margin: 16px 0 20px;
+  letter-spacing: -0.02em;
+}
+
+.compare-hero .hero-sub {
+  font-size: 1.15rem;
+  color: var(--text-2);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ── Compare card grid ── */
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  padding: 0 0 80px;
+}
+
+.compare-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.compare-card:hover {
+  border-color: var(--border-2);
+  transform: translateY(-2px);
+}
+
+.compare-card-vs {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.compare-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.compare-card p {
+  font-size: 0.88rem;
+  color: var(--text-2);
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+}
+
+.compare-card-link {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--blue);
+  margin-top: 8px;
+}
+
+/* ── Comparison page ── */
+.comparison-page {
+  padding: 120px 0 80px;
+}
+
+.comparison-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-2);
+  margin-bottom: 24px;
+}
+
+.comparison-breadcrumb a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.comparison-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.comparison-breadcrumb-sep {
+  color: var(--text-muted);
+}
+
+.comparison-page h1 {
+  font-size: clamp(1.7rem, 4vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px;
+}
+
+.comparison-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-2);
+  margin: 0 0 56px;
+  max-width: 620px;
+  line-height: 1.7;
+}
+
+/* ── Verdict cards ── */
+.verdict-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 56px;
+}
+
+.verdict-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+
+.verdict-card.featured {
+  border-color: rgba(59, 130, 246, 0.4);
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(59,130,246,0.06) 100%);
+}
+
+.verdict-card-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.verdict-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 12px;
+}
+
+.verdict-card p {
+  font-size: 0.9rem;
+  color: var(--text-2);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ── Comparison table ── */
+.comparison-table-section {
+  margin-bottom: 56px;
+}
+
+.comparison-table-section h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 24px;
+}
+
+.cmp-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.cmp-table th {
+  background: var(--bg-card-2);
+  padding: 14px 20px;
+  text-align: left;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.cmp-table th:first-child {
+  width: 30%;
+}
+
+.cmp-table td {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.cmp-table tr:last-child td {
+  border-bottom: none;
+}
+
+.cmp-table tr:hover td {
+  background: rgba(255,255,255,0.02);
+}
+
+.cmp-table td:first-child {
+  color: var(--text-2);
+  font-weight: 500;
+}
+
+.cmp-table td.featured-col {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ── Who should choose ── */
+.choose-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 56px;
+}
+
+.choose-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+
+.choose-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 16px;
+  color: var(--text);
+}
+
+.choose-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.choose-card li {
+  font-size: 0.88rem;
+  color: var(--text-2);
+  line-height: 1.5;
+  padding-left: 20px;
+  position: relative;
+}
+
+.choose-card li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--green);
+  font-weight: 700;
+}
+
+/* ── CTA section ── */
+.compare-cta {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 48px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.compare-cta h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+.compare-cta p {
+  color: var(--text-2);
+  margin: 0 0 24px;
+  font-size: 1rem;
+}
+
+/* ── Reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .verdict-grid,
+  .choose-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .compare-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .compare-cta {
+    padding: 32px 20px;
+  }
+
+  .cmp-table th,
+  .cmp-table td {
+    padding: 12px 14px;
+  }
+}
